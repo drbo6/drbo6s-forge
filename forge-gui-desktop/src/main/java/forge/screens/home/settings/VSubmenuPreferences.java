@@ -175,6 +175,24 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         pnlPrefs.add(btnClearImageCache, twoButtonConstraints1);
         pnlPrefs.add(btnTokenPreviewer, twoButtonConstraints2);
 
+        // DrBo6's Shortcuts
+        pnlPrefs.add(new SectionLabel(localizer.getMessage("DrBo6sShortcuts")), sectionConstraints);
+
+        pnlPrefs.add(getPlayerNamePanel(), titleConstraints + ", h 26px!");
+        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlPlayerName")), descriptionConstraints);
+
+        pnlPrefs.add(cbShowDraftRanking, titleConstraints);
+        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlShowDraftRankingOverlay")), descriptionConstraints);
+
+        pnlPrefs.add(cbImageFetcher, titleConstraints);
+        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlImageFetcher")), descriptionConstraints);
+
+        pnlPrefs.add(cbEnableSounds, titleConstraints);
+        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlEnableSounds")), descriptionConstraints);
+
+        pnlPrefs.add(cbEnableMusic, titleConstraints);
+        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlEnableMusic")), descriptionConstraints);
+
         // General Configuration
         pnlPrefs.add(new SectionLabel(localizer.getMessage("GeneralConfiguration")), sectionConstraints);
 
@@ -186,8 +204,8 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         pnlPrefs.add(cbpDefaultLanguage, comboBoxConstraints);
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlSelectLanguage")), descriptionConstraints);
 
-        pnlPrefs.add(getPlayerNamePanel(), titleConstraints + ", h 26px!");
-        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlPlayerName")), descriptionConstraints);
+//        pnlPrefs.add(getPlayerNamePanel(), titleConstraints + ", h 26px!");
+//        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlPlayerName")), descriptionConstraints);
 
         pnlPrefs.add(cbCompactMainMenu, titleConstraints);
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlCompactMainMenu")), descriptionConstraints);
@@ -313,8 +331,8 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlSmartCardArtOptNote")), descriptionConstraints);
 
         //Draft Ranking Overlay
-        pnlPrefs.add(cbShowDraftRanking, titleConstraints);
-        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlShowDraftRankingOverlay")), descriptionConstraints);
+//        pnlPrefs.add(cbShowDraftRanking, titleConstraints);
+//        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlShowDraftRankingOverlay")), descriptionConstraints);
 
         // Advanced
         pnlPrefs.add(new SectionLabel(localizer.getMessage("AdvancedSettings")), sectionConstraints);
@@ -358,8 +376,8 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         pnlPrefs.add(cbpCardArtFormat, comboBoxConstraints);
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlCardArtFormat")), descriptionConstraints);
 
-        pnlPrefs.add(cbImageFetcher, titleConstraints);
-        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlImageFetcher")), descriptionConstraints);
+//        pnlPrefs.add(cbImageFetcher, titleConstraints);
+//        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlImageFetcher")), descriptionConstraints);
 
         pnlPrefs.add(cbDisableCardImages, titleConstraints);
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlDisableCardImages")), descriptionConstraints);
@@ -430,14 +448,14 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         // Sound options
         pnlPrefs.add(new SectionLabel(localizer.getMessage("SoundOptions")), sectionConstraints + ", gaptop 2%");
 
-        pnlPrefs.add(cbEnableSounds, titleConstraints);
-        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlEnableSounds")), descriptionConstraints);
+//        pnlPrefs.add(cbEnableSounds, titleConstraints);
+//        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlEnableSounds")), descriptionConstraints);
 
         pnlPrefs.add(cbpSoundSets, comboBoxConstraints);
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlpSoundSets")), descriptionConstraints);
 
-        pnlPrefs.add(cbEnableMusic, titleConstraints);
-        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlEnableMusic")), descriptionConstraints);
+//        pnlPrefs.add(cbEnableMusic, titleConstraints);
+//        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlEnableMusic")), descriptionConstraints);
 
         pnlPrefs.add(cbpMusicSets, comboBoxConstraints);
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlpMusicSets")), descriptionConstraints);

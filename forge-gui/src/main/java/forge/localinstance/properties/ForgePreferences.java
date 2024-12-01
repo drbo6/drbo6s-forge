@@ -25,8 +25,9 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
     /**
      * Preference identifiers and their default values.
      */
+
     public enum FPref {
-        PLAYER_NAME (""),
+        PLAYER_NAME ("DrBo6"),
         CONSTRUCTED_P1_DECK_STATE(""),
         CONSTRUCTED_P2_DECK_STATE(""),
         CONSTRUCTED_P3_DECK_STATE(""),
@@ -74,7 +75,7 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
         UI_USE_OLD ("false"),
         UI_RANDOM_FOIL ("false"),
         UI_ENABLE_AI_CHEATS ("false"),
-        UI_AVATARS ("0,1"),
+        UI_AVATARS ("27,1"), // Bob - setting this to subimage 27 for Bob
         UI_SLEEVES ("0,1"),
         UI_SHOW_CARD_OVERLAYS ("true"),
         UI_OVERLAY_CARD_NAME ("true"),

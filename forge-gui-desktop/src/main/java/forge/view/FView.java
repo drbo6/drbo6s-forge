@@ -6,12 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -238,7 +233,6 @@ public enum FView {
 
 		//start background music
 		SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
-
 	}
 
 	// will populate remainingFiles with remaining files if not null, returns whether any files have

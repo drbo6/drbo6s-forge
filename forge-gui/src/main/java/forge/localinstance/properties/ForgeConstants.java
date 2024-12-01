@@ -24,6 +24,9 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 
+// Bob
+import forge.player.CustomPlayerNames;
+
 public final class ForgeConstants {
     public static final String GITHUB_FORGE_URL             = "https://github.com/Card-Forge/forge/";
     public static final String GITHUB_RELEASES_ATOM         = GITHUB_FORGE_URL + "releases.atom";
@@ -281,6 +284,10 @@ public final class ForgeConstants {
     public static final FileLocation EDITOR_LAYOUT_FILE      = new FileLocation(_DEFAULTS_DIR, USER_PREFS_DIR, "editor.xml");
     public static final FileLocation GAUNTLET_DIR            = new FileLocation(_DEFAULTS_DIR, USER_DIR,       "gauntlet" + PATH_SEPARATOR);
     public static final FileLocation TOURNAMENT_DIR          = new FileLocation(_DEFAULTS_DIR, USER_DIR,       "tournament" + PATH_SEPARATOR);
+
+    // Bob Injection
+    public static final String CUSTOM_PLAYER_NAMES_FILE = _DEFAULTS_DIR + "customPlayerNames.txt";
+    public static final Map<Integer, String> CUSTOM_PLAYER_NAMES = new CustomPlayerNames().loadCustomPlayerNames(ForgeConstants.CUSTOM_PLAYER_NAMES_FILE.toString());
 
     // data that is only in the cached dir
     private static final String PICS_DIR                     = CACHE_DIR + "pics" + PATH_SEPARATOR;
