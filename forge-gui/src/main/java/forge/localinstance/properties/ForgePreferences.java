@@ -195,7 +195,7 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
         LOAD_GAME_SCREEN("BoosterDraft"),
         PLAY_ONLINE_SCREEN("Lobby"),
 
-        SUBMENU_CURRENTMENU ("CONSTRUCTED"),
+        SUBMENU_CURRENTMENU ("HOME_DRAFT"),
         SUBMENU_SANCTIONED ("true"),
         SUBMENU_ONLINE ("false"),
         SUBMENU_GAUNTLET ("false"),
