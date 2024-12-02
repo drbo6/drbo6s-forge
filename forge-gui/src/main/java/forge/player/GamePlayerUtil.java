@@ -94,15 +94,14 @@ public final class GamePlayerUtil {
         player.setAvatarIndex(avatarIndex);
         player.setSleeveIndex(sleeveIndex);
 
+        //------------------
         //Bob Code Injection
-        System.out.println("Loaded names: " + ForgeConstants.CUSTOM_PLAYER_NAMES);
-
+        //------------------
         // Get the player names; if the name is null, create an AI player
         String playerName = ForgeConstants.CUSTOM_PLAYER_NAMES.get(avatarIndex);
         if (playerName == null || playerName.equalsIgnoreCase("Null")) {
             return createAiPlayer();
         }
-
         // Otherwise, set the name and return the player
         player.setName(playerName);
         return player;

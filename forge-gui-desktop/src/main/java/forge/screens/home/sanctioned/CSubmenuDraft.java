@@ -118,7 +118,16 @@ public enum CSubmenuDraft implements ICDoc {
         }
 
         FModel.getGauntletMini().resetGauntletDraft();
-        String duelType = (String)VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedItem();
+
+        // ------------------
+        // Bob Code Injection
+        // ------------------
+        // DuelType passes on the secondary information
+        // For a single opponent, it is the deck number. For multiple opponents, it is the number of them. For Gauntlet, it just says Gauntlet.
+        // We updated the code to use the index instead of the content, so that we can add more information to the text
+        // String duelType= (String)VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedItem();
+        int selectedIndex = VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedIndex() + 1; // +1 as it is zero indexed otherwise
+        String duelType = String.valueOf(selectedIndex);
 
         if (duelType == null) {
             FOptionPane.showErrorDialog("Please select duel types for the draft match.", "Missing opponent items");
@@ -126,7 +135,8 @@ public enum CSubmenuDraft implements ICDoc {
         }
 
         final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName());
-        if (gauntlet) {
+
+        if (gauntlet) { // Shorthand for if the player selected Gauntlet
             if ("Gauntlet".equals(duelType)) {
                 final int rounds = opponentDecks.getAiDecks().size();
                 FModel.getGauntletMini().launch(rounds, humanDeck.getDeck(), gameType);
@@ -142,16 +152,22 @@ public enum CSubmenuDraft implements ICDoc {
         });
 
         Map<Integer, Deck> aiMap = Maps.newHashMap();
-        if (VSubmenuDraft.SINGLETON_INSTANCE.isSingleSelected()) {
+        if (VSubmenuDraft.SINGLETON_INSTANCE.isSingleSelected()) { // isSingleSelected refers to the radio button to select "Single opponent"
             // Restore Zero Indexing
-            final int aiIndex = Integer.parseInt(duelType)-1;
+            final int aiIndex = Integer.parseInt(duelType)-1; // This gets the deck number -1 so deck 1 is 0.
+
+            // Below outputs the name of the selected deck as listed in the text file which looks like this: forge.gamemodes.limited.DeckColors@ and then a hexadecimal value (Hash Code). It is likely Generated from an object using ToString().
+            // opponentDecks outputs the name of the Human Deck (as that is the main folder name needed to get all decks)
+            // getAIDecks gets all the names for the AI decks
+            // the index then picks the selected one
             final Deck aiDeck = opponentDecks.getAiDecks().get(aiIndex);
+
             if (aiDeck == null) {
                 throw new IllegalStateException("Draft: Computer deck is null!");
             }
 
-            aiMap.put(aiIndex + 1, aiDeck);
-        } else {
+            aiMap.put(aiIndex + 1, aiDeck); // This is a hashmap that just contains deck number = deck name for the opponent
+        } else { // Since we already ruled out Single and Gauntlet, it is multiple (which means multiple players at the same time)
             final int numOpponents = Integer.parseInt(duelType);
 
             int maxDecks = opponentDecks.getAiDecks().size();
@@ -227,12 +243,14 @@ public enum CSubmenuDraft implements ICDoc {
 
         if (VSubmenuDraft.SINGLETON_INSTANCE.isSingleSelected()) {
             // Single opponent
-            final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName());
+            final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName()); // This means it is calling all 3 methods after FModel
             int indx = 0;
-            for (@SuppressWarnings("unused") Deck d : opponentDecks.getAiDecks()) {
+
+            for (@SuppressWarnings("unused") Deck d : opponentDecks.getAiDecks()) { // The latter is a list of the decks with their hashed names in order to match the number of the file
                 indx++;
                 // 1-7 instead of 0-6
-                combo.addItem(String.valueOf(indx));
+                // Bob - We added some code earlier in the page so that you can pass more information in here for each deck
+                combo.addItem(String.valueOf(indx) + " - Test"); // Add the indexes to the combo box. You can access the deck here using d.
             }
         } else if (VSubmenuDraft.SINGLETON_INSTANCE.isGauntlet()) {
             // Gauntlet/Tournament
