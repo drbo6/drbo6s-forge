@@ -2,13 +2,21 @@ package forge.screens.match;
 
 import javax.swing.JButton;
 
+import forge.deck.Deck;
+import forge.deck.DeckProxy;
 import forge.drbo6scustoms.DraftClassTracker;
 import forge.Singletons;
+import forge.LobbyPlayer;
 import forge.game.GameView;
+import forge.game.player.PlayerView;
+import forge.game.player.RegisteredPlayer;
 import forge.gamemodes.match.NextGameDecision;
 import forge.gui.SOverlayUtils;
 import forge.gui.framework.FScreen;
 import forge.interfaces.IGameController;
+import forge.player.GamePlayerUtil;
+import forge.screens.home.sanctioned.VSubmenuDraft;
+import forge.util.collect.FCollectionView;
 
 /** 
  * Default controller for a ViewWinLose object. This class can
@@ -32,19 +40,11 @@ public class ControlWinLose {
         // CODE INJECTION
         // The game just uses the index for the AI deck throughout, from 1-7 with the player deck being 0.
         // Gauntlet breaks this (in GauntletMini.java) by simply equating the AI deck to the round, so round 1 is deck 1, round 2 is deck 2 and so on.
-
         DraftClassTracker DCT = new DraftClassTracker();
-        DCT.UpdateDraftStats("ControlWinLose triggered");
+        final String humanDeckName = lastGame.getDeck(lastGame.getPlayers().get(0)).getName(); // This will get the name of the player's deck in the game that we are currently reporting on
+        final String AIDeckNumber = String.valueOf(lastGame.getGame().getRegisteredPlayers().get(1).getId()); // This will get the number of the AI deck that was played against
+        DCT.UpdateDraftStats(humanDeckName, AIDeckNumber);
         DCT = null; // Prepare for garbage collection
-
-        // OLD
-        // We therefore decided to just manually do our own thing because we would have to figure out how to round progression works and this all just takes too long for our purposes.
-//        System.out.println("Hello, this is ControlWinLose speaking");
-//        LobbyPlayer currentPlayer = GamePlayerUtil.getGuiPlayer();
-//        System.out.println("Player: " + currentPlayer.getName());
-//        System.out.println("Winning Player: " + lastGame.getWinningPlayerName());
-//        System.out.println("AI Deck (in single matches): " + lastGame.getGame().getRegisteredPlayers().get(1).getId());
-//        System.out.println("AI Deck (Gauntlet): " + lastGame.getGame().getRegisteredPlayers().);
     }
 
     /** */

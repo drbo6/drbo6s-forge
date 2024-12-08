@@ -147,7 +147,12 @@ public enum CSubmenuDraft implements ICDoc {
             return;
         } else {
             DraftClassTracker DCT = new DraftClassTracker();
-            DCT.UpdateDraftStats("StartGame triggered");
+            if (duelType == "Gauntlet") { // Initialize a Gauntlet Run
+                DCT.StartDraftStats(humanDeck.getDeck().getName(), "1", true);
+            }
+            if (VSubmenuDraft.SINGLETON_INSTANCE.isSingleSelected()) { // Initialize a single opponent run (multiple opponents are untracked; you can get those by entering else to this)
+                DCT.StartDraftStats(humanDeck.getDeck().getName(), duelType, false);
+            }
             DCT = null; // Prepare for garbage collection
         }
 
