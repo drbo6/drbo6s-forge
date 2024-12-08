@@ -125,9 +125,11 @@ public enum CSubmenuDraft implements ICDoc {
         // DuelType passes on the secondary information
         // For a single opponent, it is the deck number. For multiple opponents, it is the number of them. For Gauntlet, it just says Gauntlet.
         // We updated the code to use the index instead of the content, so that we can add more information to the text
-        // String duelType= (String)VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedItem();
-        int selectedIndex = VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedIndex() + 1; // +1 as it is zero indexed otherwise
-        String duelType = String.valueOf(selectedIndex);
+        String duelType = (String)VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedItem(); // Original code that will cause an error for non-gauntlet choices as it is no longer the number of the chosen deck or number of concurrent opponents
+        if (duelType != "Gauntlet") {
+            int selectedIndex = VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedIndex() + 1; // +1 as it is zero indexed otherwise
+            duelType = String.valueOf(selectedIndex);
+        }
 
         if (duelType == null) {
             FOptionPane.showErrorDialog("Please select duel types for the draft match.", "Missing opponent items");
