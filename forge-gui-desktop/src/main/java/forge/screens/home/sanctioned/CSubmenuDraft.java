@@ -6,6 +6,7 @@ import forge.Singletons;
 import forge.deck.Deck;
 import forge.deck.DeckGroup;
 import forge.deck.DeckProxy;
+import forge.drbo6scustoms.DraftClassTracker;
 import forge.game.GameType;
 import forge.game.player.RegisteredPlayer;
 import forge.gamemodes.limited.BoosterDraft;
@@ -131,9 +132,23 @@ public enum CSubmenuDraft implements ICDoc {
             duelType = String.valueOf(selectedIndex);
         }
 
+        // ------------------
+        // Bob Code Injection
+        // ------------------
+        // As part of starting the game, we are going to write some key information to a JSON file through a DraftClassTracker
+        // Original code here:
+//        if (duelType == null) {
+//            FOptionPane.showErrorDialog("Please select duel types for the draft match.", "Missing opponent items");
+//            return;
+//        }
+        // Update:
         if (duelType == null) {
             FOptionPane.showErrorDialog("Please select duel types for the draft match.", "Missing opponent items");
             return;
+        } else {
+            DraftClassTracker DCT = new DraftClassTracker();
+            DCT.UpdateDraftStats("StartGame triggered");
+            DCT = null; // Prepare for garbage collection
         }
 
         final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName());

@@ -2,14 +2,13 @@ package forge.screens.match;
 
 import javax.swing.JButton;
 
-import forge.LobbyPlayer;
+import forge.drbo6scustoms.DraftClassTracker;
 import forge.Singletons;
 import forge.game.GameView;
 import forge.gamemodes.match.NextGameDecision;
 import forge.gui.SOverlayUtils;
 import forge.gui.framework.FScreen;
 import forge.interfaces.IGameController;
-import forge.player.GamePlayerUtil;
 
 /** 
  * Default controller for a ViewWinLose object. This class can
@@ -30,9 +29,15 @@ public class ControlWinLose {
         this.matchUI = matchUI;
         addListeners();
 
-        // OLD CODE INJECTION
+        // CODE INJECTION
         // The game just uses the index for the AI deck throughout, from 1-7 with the player deck being 0.
         // Gauntlet breaks this (in GauntletMini.java) by simply equating the AI deck to the round, so round 1 is deck 1, round 2 is deck 2 and so on.
+
+        DraftClassTracker DCT = new DraftClassTracker();
+        DCT.UpdateDraftStats("ControlWinLose triggered");
+        DCT = null; // Prepare for garbage collection
+
+        // OLD
         // We therefore decided to just manually do our own thing because we would have to figure out how to round progression works and this all just takes too long for our purposes.
 //        System.out.println("Hello, this is ControlWinLose speaking");
 //        LobbyPlayer currentPlayer = GamePlayerUtil.getGuiPlayer();

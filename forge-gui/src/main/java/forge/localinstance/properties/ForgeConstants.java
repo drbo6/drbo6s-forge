@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Map;
 
 // Bob
-import forge.player.CustomPlayerNames;
+import forge.drbo6scustoms.CustomPlayerNames;
 
 public final class ForgeConstants {
     public static final String GITHUB_FORGE_URL             = "https://github.com/Card-Forge/forge/";

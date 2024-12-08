@@ -1,4 +1,4 @@
-package forge.player;
+package forge.drbo6scustoms;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
