@@ -125,7 +125,7 @@ public enum CSubmenuDraft implements ICDoc {
         // DuelType passes on the secondary information
         // For a single opponent, it is the deck number. For multiple opponents, it is the number of them. For Gauntlet, it just says Gauntlet.
         // We updated the code to use the index instead of the content, so that we can add more information to the text
-        String duelType = (String)VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedItem(); // Original code that will cause an error for non-gauntlet choices as it is no longer the number of the chosen deck or number of concurrent opponents
+        String duelType = (String)VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedItem(); // Original code that will now cause an error for non-gauntlet choices as it is no longer the number of the chosen deck or number of concurrent opponents; hence we added 4 lines below
         if (duelType != "Gauntlet") {
             int selectedIndex = VSubmenuDraft.SINGLETON_INSTANCE.getCbOpponent().getSelectedIndex() + 1; // +1 as it is zero indexed otherwise
             duelType = String.valueOf(selectedIndex);
@@ -138,6 +138,7 @@ public enum CSubmenuDraft implements ICDoc {
 
         final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName());
 
+        // BOB - THIS IS WHERE THE GAUNTLET LIKELY GETS LAUNCHED
         if (gauntlet) { // Shorthand for if the player selected Gauntlet
             if ("Gauntlet".equals(duelType)) {
                 final int rounds = opponentDecks.getAiDecks().size();
@@ -194,21 +195,23 @@ public enum CSubmenuDraft implements ICDoc {
             }
         }
 
+        // Bob's Notes: Once the AI decks are chosen, the human player (humanDeck) and the AI players (aiDeck) are registered in a starter list, which is used to initialize the match. See in-line notes below.
+        // THIS DOES NOT LAUNCH THE GAUNTLETS; that happens above.
         final List<RegisteredPlayer> starter = new ArrayList<>();
         // Human is 0
         final RegisteredPlayer human = new RegisteredPlayer(humanDeck.getDeck()).setPlayer(GamePlayerUtil.getGuiPlayer());
-        starter.add(human);
+        starter.add(human); // Adds the human player, which includes their deck, their ID is 0
         human.setId(0);
         human.assignConspiracies();
         for(Map.Entry<Integer, Deck> aiDeck : aiMap.entrySet()) {
             RegisteredPlayer aiPlayer = new RegisteredPlayer(aiDeck.getValue()).setPlayer(GamePlayerUtil.createAiPlayer());
             aiPlayer.setId(aiDeck.getKey());
-            starter.add(aiPlayer);
+            starter.add(aiPlayer); // Adds multiple aiPlayers, each of which has the key (just the number of the deck; player is zero, deck 1 is 1 and so on) of the aiDeck as their ID (aiDeck.getKey() which is then set to the aiPlayer with setID()).
             aiPlayer.assignConspiracies();
         }
 
         final HostedMatch hostedMatch = GuiBase.getInterface().hostMatch();
-        hostedMatch.startMatch(GameType.Draft, null, starter, human, GuiBase.getInterface().getNewGuiGame());
+        hostedMatch.startMatch(GameType.Draft, null, starter, human, GuiBase.getInterface().getNewGuiGame()); // Starter is a list of players that has all the information needed to start the game
 
         SwingUtilities.invokeLater(SOverlayUtils::hideOverlay);
     }
