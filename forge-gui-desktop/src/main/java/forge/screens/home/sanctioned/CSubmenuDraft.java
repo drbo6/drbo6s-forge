@@ -36,6 +36,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static forge.drbo6scustoms.DraftClassTracker.*;
+
 /**
  * Controls the draft submenu in the home UI.
  *
@@ -123,6 +125,7 @@ public enum CSubmenuDraft implements ICDoc {
         // ------------------
         // Bob Code Injection
         // ------------------
+        // The combobox has more information than just the number of the AI deck, so we are fixing resulting errors.
         // DuelType passes on the secondary information
         // For a single opponent, it is the deck number. For multiple opponents, it is the number of them. For Gauntlet, it just says Gauntlet.
         // We updated the code to use the index instead of the content, so that we can add more information to the text
@@ -135,25 +138,17 @@ public enum CSubmenuDraft implements ICDoc {
         // ------------------
         // Bob Code Injection
         // ------------------
-        // As part of starting the game, we are going to write some key information to a JSON file through a DraftClassTracker
-        // Original code here:
-//        if (duelType == null) {
-//            FOptionPane.showErrorDialog("Please select duel types for the draft match.", "Missing opponent items");
-//            return;
-//        }
-        // Update:
-        if (duelType == null) {
+        // As part of starting the game, we we are saving the dueltype and the ai opponent deck to a Java properties file.
+        if (duelType == null) { // This block is the original code
             FOptionPane.showErrorDialog("Please select duel types for the draft match.", "Missing opponent items");
             return;
-        } else {
-            DraftClassTracker DCT = new DraftClassTracker();
+        } else { // This block starts our edits
             if (duelType == "Gauntlet") { // Initialize a Gauntlet Run
-                DCT.StartDraftStats(humanDeck.getDeck().getName(), "1", true);
+                DraftClassTracker.UpdateDraftStatsOpponentAndDuelType(humanDeck.getDeck().getName(), "1", true);
             }
             if (VSubmenuDraft.SINGLETON_INSTANCE.isSingleSelected()) { // Initialize a single opponent run (multiple opponents are untracked; you can get those by entering else to this)
-                DCT.StartDraftStats(humanDeck.getDeck().getName(), duelType, false);
+                DraftClassTracker.UpdateDraftStatsOpponentAndDuelType(humanDeck.getDeck().getName(), duelType, false);
             }
-            DCT = null; // Prepare for garbage collection
         }
 
         final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName());
@@ -257,6 +252,7 @@ public enum CSubmenuDraft implements ICDoc {
     }
 
     private void fillOpponentComboBox() {
+
         final VSubmenuDraft view = VSubmenuDraft.SINGLETON_INSTANCE;
         JComboBox<String> combo = view.getCbOpponent();
         combo.removeAllItems();
@@ -266,22 +262,38 @@ public enum CSubmenuDraft implements ICDoc {
             return;
         }
 
+        // ------------------
+        // Bob Code Injection
+        // ------------------
+        // We need a Java properties file to be in place to start the draft and to name the AI decks
+        String humanDeckName = humanDeck.getDeck().getName();
+        DraftClassTracker.InitializeDraftStatsFile(humanDeckName); // The method will check if the file already exists and not doing anything if it does.
+        Map<String, Integer> draftStatsResults = DraftClassTracker.loadDraftStatsResults(humanDeckName);
+
         if (VSubmenuDraft.SINGLETON_INSTANCE.isSingleSelected()) {
             // Single opponent
-            final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName()); // This means it is calling all 3 methods after FModel
+            final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeck.getName());
             int indx = 0;
 
             for (@SuppressWarnings("unused") Deck d : opponentDecks.getAiDecks()) { // The latter is a list of the decks with their hashed names in order to match the number of the file
-                indx++;
-                // 1-7 instead of 0-6
-                // Bob - We added some code earlier in the page so that you can pass more information in here for each deck
-                combo.addItem(String.valueOf(indx) + " - Test"); // Add the indexes to the combo box. You can access the deck here using d.
+                indx++; // 1-7 instead of 0-6
+
+                if (draftStatsResults == null ) {
+                    System.out.println("Win/loss data is not available.");
+                    combo.addItem(String.valueOf(indx)); // Add the indexes to the combo box. You can access the deck here using d.
+                } else {
+                    Integer wins = draftStatsResults.get("MWvs" + indx);
+                    Integer losses = draftStatsResults.get("MLvs" + indx);
+                    combo.addItem(String.valueOf(indx) + " (" + String.valueOf(wins) + "-" + String.valueOf(losses) + ")"); // Add the indexes to the combo box. You can access the deck here using d.
+                }
+
             }
         } else if (VSubmenuDraft.SINGLETON_INSTANCE.isGauntlet()) {
             // Gauntlet/Tournament
             combo.addItem("Gauntlet");
             //combo.addItem("Tournament");
         } else {
+            // Playing against multiple opponents
             combo.addItem("2");
             combo.addItem("3");
             combo.addItem("4");

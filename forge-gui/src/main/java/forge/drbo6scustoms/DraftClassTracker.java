@@ -2,16 +2,12 @@ package forge.drbo6scustoms;
 
 import forge.localinstance.properties.ForgeConstants;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Objects;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
 
 public class DraftClassTracker {
 
-    public void StartDraftStats(String humanDeckName, String AIDeckNumber, Boolean gauntletActive) {
+    public static void InitializeDraftStatsFile(String humanDeckName) {
         String fileName = "draftstats.properties";
         String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
         File draftStatsFile = new File(filepath);
@@ -19,43 +15,38 @@ public class DraftClassTracker {
         Properties props = new Properties();
         if (!draftStatsFile.exists()) {
             props.setProperty("humanDeckName", humanDeckName);
-            props.setProperty("AIDeckNumber", AIDeckNumber);
-            props.setProperty("GWvs1", "0"); // Games won vs AI deck 1
-            props.setProperty("GWvs2", "0");
-            props.setProperty("GWvs3", "0");
-            props.setProperty("GWvs4", "0");
-            props.setProperty("GWvs5", "0");
-            props.setProperty("GWvs6", "0");
-            props.setProperty("GWvs7", "0");
-            props.setProperty("GLvs1", "0");
-            props.setProperty("GLvs2", "0");
-            props.setProperty("GLvs3", "0");
-            props.setProperty("GLvs4", "0");
-            props.setProperty("GLvs5", "0");
-            props.setProperty("GLvs6", "0");
-            props.setProperty("GLvs7", "0");
-            props.setProperty("MWvs1", "0"); // Matches won vs AI deck 1
-            props.setProperty("MWvs2", "0");
-            props.setProperty("MWvs3", "0");
-            props.setProperty("MWvs4", "0");
-            props.setProperty("MWvs5", "0");
-            props.setProperty("MWvs6", "0");
-            props.setProperty("MWvs7", "0");
-            props.setProperty("MLvs1", "0");
-            props.setProperty("MLvs2", "0");
-            props.setProperty("MLvs3", "0");
-            props.setProperty("MLvs4", "0");
-            props.setProperty("MLvs5", "0");
-            props.setProperty("MLvs6", "0");
-            props.setProperty("MLvs7", "0");
-            props.setProperty("GauntletActive", gauntletActive.toString());
+            props.setProperty("latestAIOpponentDeckNumber", "0");
+            for (int i = 1; i <= 7; i++) {
+                props.setProperty("GWvs" + i, "0"); // Games won vs AI
+                props.setProperty("GLvs" + i, "0");
+                props.setProperty("MWvs" + i, "0"); // Matches won vs AI
+                props.setProperty("MLvs" + i, "0");
+            }
+            props.setProperty("GauntletActive", "false");
             WriteToPropsFile(filepath, props);
         } else {
             System.out.println(filepath + " exists. No need to create the file at this time.");
         }
     }
 
-    public void UpdateDraftStats(String humanDeckName, String AIDeckNumber) {
+    public static void UpdateDraftStatsOpponentAndDuelType(String humanDeckName, String latestAIOpponentDeckNumber, Boolean gauntletActive) {
+        String fileName = "draftstats.properties";
+        String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
+        File draftStatsFile = new File(filepath);
+
+        Properties props = new Properties();
+        if (draftStatsFile.exists()) {
+            props = ReadFromPropsFile(filepath); // This is needed to ensure you do not delete entries that you are not modifying
+            props.setProperty("humanDeckName", humanDeckName);
+            props.setProperty("latestAIOpponentDeckNumber", latestAIOpponentDeckNumber);
+            props.setProperty("GauntletActive", gauntletActive.toString());
+            WriteToPropsFile(filepath, props);
+        } else {
+            System.out.println(filepath + " does not exists! Check your code.");
+        }
+    }
+
+    public static void UpdateDraftStatsResults(String humanDeckName, String latestAIOpponentDeckNumber) {
         String fileName = "draftstats.properties";
         String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
         File draftStatsFile = new File(filepath);
@@ -65,7 +56,7 @@ public class DraftClassTracker {
             props = ReadFromPropsFile(filepath);
 
             // Cancel the operation if any of the keys does not exist
-            String[] requiredKeys = {"humanDeckName", "AIDeckNumber", "GauntletActive"};
+            String[] requiredKeys = {"humanDeckName", "latestAIOpponentDeckNumber", "GauntletActive"};
             for (String key : requiredKeys) {
                 if (!props.containsKey(key)) {
                     System.out.println("One or more required keys are missing from the properties file. Cancelling operation.");
@@ -85,23 +76,62 @@ public class DraftClassTracker {
 
             // Create variables from the properties file content
             String prevHumanDeckName = props.getProperty("humanDeckName");
-            String prevAIDeckNumber = props.getProperty("AIDeckNumber"); // This will be needed for gauntlet
+            String AIOpponentDeckNumber = props.getProperty("latestAIOpponentDeckNumber"); // This will be needed for gauntlet
             String prevGauntletActive = props.getProperty("GauntletActive"); // This will be needed for gauntlet
 
             // Make sure that we are writing to the correct file. We should be, but just in case.
             if (Objects.equals(humanDeckName, prevHumanDeckName)) {
-                int intAIDeckNumber = Integer.parseInt(AIDeckNumber);
-                String GWKey = "GWvs" + intAIDeckNumber;
-                String GWValue = props.getProperty(GWKey);
-                int GWValueInt = Integer.parseInt(GWValue);
+                int intAIDeckNumber = Integer.parseInt(AIOpponentDeckNumber);
+                String MWKey = "MWvs" + intAIDeckNumber;
+                String MWValue = props.getProperty(MWKey);
+                int GWValueInt = Integer.parseInt(MWValue);
                 GWValueInt++; // Just increase it as a test; CONTINUE HERE
-                props.setProperty(GWKey, String.valueOf(GWValueInt));  // Save the updated value back to the properties
+                props.setProperty(MWKey, String.valueOf(GWValueInt));  // Save the updated value back to the properties
             }
 
             // Write the updated properties back to the file
             WriteToPropsFile(filepath, props);
         } else {
             System.out.println("Draft Stats file does not exist, unable to update.");
+        }
+    }
+
+    public static Map<String, Integer> loadDraftStatsResults(String humanDeckName) {
+        String fileName = "draftstats.properties";
+        String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
+        File draftStatsFile = new File(filepath);
+        Properties props = new Properties();
+        if (draftStatsFile.exists()) {
+
+            // Read properties from the existing file
+            props = ReadFromPropsFile(filepath);
+
+            // Create a map to hold the results for win/loss
+            Map<String, Integer> winLossData = new HashMap<>();
+
+            // Load data for both wins and losses
+            for (int i = 1; i <= 7; i++) { // Iterate over the 7 possible AI deck numbers
+                String gameWinKey = "GWvs" + i; // Key for "Games Won" against AI deck i
+                String gameLossKey = "GLvs" + i; // Key for "Games Lost" against AI deck i
+                String matchWinKey = "MWvs" + i; // Key for "Matches Won" against AI deck i
+                String matchLossKey = "MLvs" + i; // Key for "Matches Lost" against AI deck i
+
+                // Get the values for wins and losses, defaulting to 0 if not found
+                int wins = Integer.parseInt(props.getProperty(gameWinKey, "0"));
+                int losses = Integer.parseInt(props.getProperty(gameLossKey, "0"));
+                int matchWins = Integer.parseInt(props.getProperty(matchWinKey, "0"));
+                int matchLosses = Integer.parseInt(props.getProperty(matchLossKey, "0"));
+
+                // Store the data in the map
+                winLossData.put("GWvs" + i, wins);
+                winLossData.put("GLvs" + i, losses);
+                winLossData.put("MWvs" + i, matchWins);
+                winLossData.put("MLvs" + i, matchLosses);
+            }
+            return winLossData;
+        } else {
+            System.out.println("Draft Stats file does not exist, unable to display the win/loss data.");
+            return null;
         }
     }
 
@@ -126,7 +156,7 @@ public class DraftClassTracker {
         return props;
     }
 
-    public void printReceivedValues(Object... values) {
+    public static void printReceivedValues(Object... values) {
         for (Object value : values) {
             System.out.println(value);
         }
