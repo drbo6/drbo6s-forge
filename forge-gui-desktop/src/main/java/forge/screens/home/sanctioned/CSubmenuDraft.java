@@ -267,8 +267,9 @@ public enum CSubmenuDraft implements ICDoc {
         // ------------------
         // We need a Java properties file to be in place to start the draft and to name the AI decks
         String humanDeckName = humanDeck.getDeck().getName();
-        DraftClassTracker.InitializeDraftStatsFile(humanDeckName); // The method will check if the file already exists and not doing anything if it does.
+        DraftClassTracker.InitializeDraftStatsFile(humanDeckName); // The method will check if the file already exists and not do anything if it does.
         Map<String, Integer> draftStatsResults = DraftClassTracker.loadDraftStatsResults(humanDeckName);
+        String[] AIDeckNames = DraftClassTracker.getAllAIDeckNamesFromDraftStats(humanDeckName);
 
         if (VSubmenuDraft.SINGLETON_INSTANCE.isSingleSelected()) {
             // Single opponent
@@ -277,14 +278,16 @@ public enum CSubmenuDraft implements ICDoc {
 
             for (@SuppressWarnings("unused") Deck d : opponentDecks.getAiDecks()) { // The latter is a list of the decks with their hashed names in order to match the number of the file
                 indx++; // 1-7 instead of 0-6
-
-                if (draftStatsResults == null ) {
-                    System.out.println("Win/loss data is not available.");
+                if (draftStatsResults == null) {
+                    System.out.println("No W/L data found.");
+                    combo.addItem(String.valueOf(indx)); // Add the indexes to the combo box. You can access the deck here using d.
+                } else if (AIDeckNames.length == 0) {
+                    System.out.println("No AI deck names found.");
                     combo.addItem(String.valueOf(indx)); // Add the indexes to the combo box. You can access the deck here using d.
                 } else {
                     Integer wins = draftStatsResults.get("MWvs" + indx);
                     Integer losses = draftStatsResults.get("MLvs" + indx);
-                    combo.addItem(String.valueOf(indx) + " (" + String.valueOf(wins) + "-" + String.valueOf(losses) + ")"); // Add the indexes to the combo box. You can access the deck here using d.
+                    combo.addItem(String.valueOf(indx) + ". " + AIDeckNames[indx - 1] + " (" + String.valueOf(wins) + "-" + String.valueOf(losses) + ")"); // Add the indexes to the combo box. You can access the deck here using d.
                 }
 
             }
