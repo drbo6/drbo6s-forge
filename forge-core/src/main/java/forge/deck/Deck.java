@@ -538,6 +538,12 @@ public class Deck extends DeckBase implements Iterable<Entry<DeckSection, CardPo
         return allCards;
     }
 
+    public CardPool getAllDeckCardsInASinglePool() {
+        final CardPool allCards = new CardPool(); // will count cards in this pool to enforce restricted
+        allCards.addAll(this.getMain());
+        return allCards;
+    }
+
     /**
      * Counts the number of cards with the given name across all deck sections.
      */

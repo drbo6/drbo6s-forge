@@ -3,6 +3,7 @@ package forge.drbo6scustoms;
 import forge.deck.CardPool;
 import forge.deck.Deck;
 import forge.deck.DeckGroup;
+import forge.deck.DeckSection;
 import forge.item.PaperCard;
 import forge.localinstance.properties.ForgeConstants;
 import forge.model.FModel;
@@ -187,7 +188,7 @@ public class DraftClassTracker {
         }
 
         // Get the CardPool
-        CardPool cards = d.getAllCardsInASinglePool();
+        CardPool cards = d.getAllDeckCardsInASinglePool();
 
         // Convert the CardPool to a List of card names
         ArrayList<String> cardNames = getAllCardNamesAsArrayList(cards);
@@ -227,28 +228,13 @@ public class DraftClassTracker {
 
         // If the result is longer than 30 characters after 5 attempts, return the first two words
         if (result.length() > 20) {
-            String fallbackResult = String.join(" ", firstWord, middleWord);
+            String fallbackResult = String.join(" ", firstWord, lastWord);
             return fallbackResult;
         }
 
         // Return the final result
         return result;
     }
-
-//    private static String getAIDeckName(String humanDeckName, Integer AIDeckNumber) {
-//        final DeckGroup opponentDecks = FModel.getDecks().getDraft().get(humanDeckName);
-//        Deck d = opponentDecks.getAiDecks().get(AIDeckNumber - 1);
-//        if (d == null) {
-//            System.out.println("Error: Deck with ID " + AIDeckNumber + " not found.");
-//            return "Decky McDeckFace";
-//        }
-//        StringBuilder output = new StringBuilder();
-//        CardPool cards = d.getAllCardsInASinglePool();
-//        for (Map.Entry<PaperCard, Integer> c : cards) {
-//            output.append(c.getKey().getName()).append(", ").append(c.getValue()).append("\n");
-//        }
-//        return output.toString();
-//    }
 
     public static ArrayList<String> getAllCardNamesAsArrayList(CardPool cards) {
         ArrayList<String> cardList = new ArrayList<>();
