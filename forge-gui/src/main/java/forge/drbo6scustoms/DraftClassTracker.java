@@ -33,7 +33,7 @@ public class DraftClassTracker {
             props.setProperty("GauntletActive", "false");
             WriteToPropsFile(filepath, props);
         } else {
-            System.out.println(filepath + " exists. No need to create the file at this time.");
+            //System.out.println(filepath + " exists. No need to create the file at this time.");
         }
     }
 
@@ -82,6 +82,11 @@ public class DraftClassTracker {
                 }
             }
 
+            // See if we are in a gauntlet
+            // This method is obviously flawed but I didn't find an easy way to track this in the code
+            // If you start multiple gauntlets at the same time, this will cause issues
+            String gauntletActive = props.getProperty("GauntletActive", "false");
+
             // Load the data
             Map<String, Object> draftStatsMap = loadDraftStatsMap(props);
 
@@ -109,6 +114,8 @@ public class DraftClassTracker {
                     props.setProperty(gameLossKey, String.valueOf(currentLosses + 1));
                 }
 
+            } else {
+                System.out.println("The decks are not matching up.");
             }
 
             // Write the updated properties back to the file
@@ -296,7 +303,7 @@ public class DraftClassTracker {
         // Update the file
         try (FileWriter writer = new FileWriter(filepath)) {
             props.store(writer, "DrBo6's Draft Stats Tracker");
-            System.out.println("Properties written to " + filepath);
+            //System.out.println("Properties written to " + filepath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -306,7 +313,7 @@ public class DraftClassTracker {
         Properties props = new Properties();
         try (FileReader reader = new FileReader(filepath)) {
             props.load(reader);
-            System.out.println("Properties read from " + filepath);
+            //System.out.println("Properties read from " + filepath);
         } catch (IOException e) {
             e.printStackTrace();
         }

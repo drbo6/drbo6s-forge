@@ -11,6 +11,7 @@ import forge.gamemodes.match.NextGameDecision;
 import forge.gui.SOverlayUtils;
 import forge.gui.framework.FScreen;
 import forge.interfaces.IGameController;
+import forge.model.FModel;
 import forge.player.GamePlayerUtil;
 
 /** 
@@ -37,7 +38,12 @@ public class ControlWinLose {
         // Gauntlet breaks this (in GauntletMini.java) by simply equating the AI deck to the round, so round 1 is deck 1, round 2 is deck 2 and so on.
         final LobbyPlayer currentPlayer = GamePlayerUtil.getGuiPlayer(); // This grabs the current player as a LobbyPlayer class; use .getName() to print the name
         final String humanDeckName = lastGame.getDeck(lastGame.getPlayers().get(0)).getName(); // This will get the name of the player's deck in the game that we are currently reporting on
-        final String AIDeckNumber = String.valueOf(lastGame.getGame().getRegisteredPlayers().get(1).getId()); // This will get the number of the AI deck that was played against
+        final String AIDeckNumber;
+        if (FModel.getGauntletMini().isGauntletDraft()) { // This will tell us if any gauntlet is active. This will cause issues if you are playing Gauntlet and non-Gauntlet games at the same time, but I didn't find a way to check that the match is associated with the gauntlet
+            AIDeckNumber = String.valueOf(FModel.getGauntletMini().getCurrentRound());
+        } else {
+            AIDeckNumber = String.valueOf(lastGame.getGame().getRegisteredPlayers().get(1).getId()); // This will get the number of the AI deck that was played against if this is not a gauntlet
+        }
         DraftClassTracker.UpdateDraftStatsResults(humanDeckName, AIDeckNumber, lastGame.isWinner(currentPlayer), lastGame.isMatchOver());
     }
 

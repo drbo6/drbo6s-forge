@@ -70,7 +70,8 @@ public class GauntletMini {
      * Advances the tournament to the next round.
      */
     public void nextRound() {
-        System.out.println("Moving from round " + currentRound + " to round " +  (currentRound + 1) + " of " + rounds);
+        //System.out.println("Moving from round " + currentRound + " to round " +  (currentRound + 1) + " of " + rounds);
+        //System.out.println("Human Deck: " + humanDeck.getName());
         if (hostedMatch == null) {
             throw new IllegalStateException("Cannot advance round when no match has been hosted.");
         }
