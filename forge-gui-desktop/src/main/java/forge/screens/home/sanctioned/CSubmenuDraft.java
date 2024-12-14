@@ -285,9 +285,13 @@ public enum CSubmenuDraft implements ICDoc {
                     System.out.println("No AI deck names found.");
                     combo.addItem(String.valueOf(indx)); // Add the indexes to the combo box. You can access the deck here using d.
                 } else {
-                    Integer wins = draftStatsResults.get("MWvs" + indx);
-                    Integer losses = draftStatsResults.get("MLvs" + indx);
-                    combo.addItem(String.valueOf(indx) + ". " + AIDeckNames[indx - 1] + " (" + String.valueOf(wins) + "-" + String.valueOf(losses) + ")"); // Add the indexes to the combo box. You can access the deck here using d.
+                    Integer gameWins = draftStatsResults.get("GWvs" + indx);
+                    Integer gameLosses = draftStatsResults.get("GLvs" + indx);
+                    Integer matchWins = draftStatsResults.get("MWvs" + indx);
+                    Integer matchLosses = draftStatsResults.get("MLvs" + indx);
+                    combo.addItem(String.valueOf(indx) + ". " + AIDeckNames[indx - 1]
+                            + " [" + String.valueOf(matchWins) + "-" + String.valueOf(matchLosses)  // Add the indexes to the combo box. You can access the deck here using d.
+                            + " | " + String.valueOf(gameWins) + "-" + String.valueOf(gameLosses) + "]"); // Add the indexes to the combo box. You can access the deck here using d.
                 }
 
             }

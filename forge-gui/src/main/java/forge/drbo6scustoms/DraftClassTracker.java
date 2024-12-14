@@ -54,7 +54,7 @@ public class DraftClassTracker {
         }
     }
 
-    public static void UpdateDraftStatsResults(String humanDeckName, String latestAIOpponentDeckNumber) {
+    public static void UpdateDraftStatsResults(String humanDeckName, String latestAIOpponentDeckNumber, Boolean humanWinner, Boolean matchCompleted) {
         String fileName = "draftstats.properties";
         String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
         File draftStatsFile = new File(filepath);
@@ -87,11 +87,28 @@ public class DraftClassTracker {
 
             // Process the results
             if (Objects.equals(humanDeckName, draftStatsMap.get("humanDeckName"))) { // Make sure that we are writing to the correct file. We should be, but just in case.
-                String MWKey = "MWvs" + Integer.parseInt(latestAIOpponentDeckNumber);
-                String MWValue = props.getProperty(MWKey);
-                int GWValueInt = Integer.parseInt(MWValue);
-                GWValueInt++; // Just increase it as a test; CONTINUE HERE
-                props.setProperty(MWKey, String.valueOf(GWValueInt));  // Save the updated value back to the properties
+
+                if (matchCompleted) {
+                    String matchWinKey = "MWvs" + latestAIOpponentDeckNumber;
+                    String matchLossKey = "MLvs" + latestAIOpponentDeckNumber;
+                    if (humanWinner) {
+                        int currentWins = Integer.parseInt(props.getProperty(matchWinKey, "0"));
+                        props.setProperty(matchWinKey, String.valueOf(currentWins + 1));
+                    } else {
+                        int currentLosses = Integer.parseInt(props.getProperty(matchLossKey, "0"));
+                        props.setProperty(matchLossKey, String.valueOf(currentLosses + 1));
+                    }
+                }
+                String gameWinKey = "GWvs" + latestAIOpponentDeckNumber;
+                String gameLossKey = "GLvs" + latestAIOpponentDeckNumber;
+                if (humanWinner) {
+                    int currentWins = Integer.parseInt(props.getProperty(gameWinKey, "0"));
+                    props.setProperty(gameWinKey, String.valueOf(currentWins + 1));
+                } else {
+                    int currentLosses = Integer.parseInt(props.getProperty(gameLossKey, "0"));
+                    props.setProperty(gameLossKey, String.valueOf(currentLosses + 1));
+                }
+
             }
 
             // Write the updated properties back to the file

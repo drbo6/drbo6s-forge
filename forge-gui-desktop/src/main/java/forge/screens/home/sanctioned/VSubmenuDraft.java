@@ -84,12 +84,12 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         lblTitle.setBackground(FSkin.getColor(FSkin.Colors.CLR_THEME2));
         lstDecks.setCaption(localizer.getMessage("lblDraftDecks"));
 
-        final JXButtonPanel grpPanel = new JXButtonPanel();
-        grpPanel.add(radSingle, "w 200px!, h 30px!");
-        grpPanel.add(radMultiple, "w 200px!, h 30px!");
-        grpPanel.add(radAll, "w 200px!, h 30px!");
+        final JXButtonPanel grpPanel = new JXButtonPanel(); // Update the 5 lines below to have 250 instead of 200 px
+        grpPanel.add(radSingle, "w 250px!, h 30px!");
+        grpPanel.add(radMultiple, "w 250px!, h 30px!");
+        grpPanel.add(radAll, "w 250px!, h 30px!");
         radSingle.setSelected(true);
-        grpPanel.add(cbOpponent, "w 200px!, h 30px!");
+        grpPanel.add(cbOpponent, "w 250px!, h 30px!");
 
         pnlStart.setLayout(new MigLayout("insets 0, gap 0, wrap 2"));
         pnlStart.setOpaque(false);
