@@ -36,8 +36,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static forge.drbo6scustoms.DraftClassTracker.*;
-
 /**
  * Controls the draft submenu in the home UI.
  *

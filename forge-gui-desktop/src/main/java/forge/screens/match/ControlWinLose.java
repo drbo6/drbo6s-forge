@@ -6,7 +6,6 @@ import forge.LobbyPlayer;
 import forge.drbo6scustoms.DraftClassTracker;
 import forge.Singletons;
 import forge.game.GameView;
-import forge.game.player.PlayerView;
 import forge.gamemodes.match.NextGameDecision;
 import forge.gui.SOverlayUtils;
 import forge.gui.framework.FScreen;

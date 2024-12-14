@@ -3,7 +3,6 @@ package forge.drbo6scustoms;
 import forge.deck.CardPool;
 import forge.deck.Deck;
 import forge.deck.DeckGroup;
-import forge.deck.DeckSection;
 import forge.item.PaperCard;
 import forge.localinstance.properties.ForgeConstants;
 import forge.model.FModel;
