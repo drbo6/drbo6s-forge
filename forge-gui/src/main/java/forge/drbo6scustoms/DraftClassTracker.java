@@ -82,15 +82,12 @@ public class DraftClassTracker {
                 }
             }
 
-            // Create variables from the properties file content
-            String prevHumanDeckName = props.getProperty("humanDeckName");
-            String AIOpponentDeckNumber = props.getProperty("latestAIOpponentDeckNumber"); // This will be needed for gauntlet
-            String prevGauntletActive = props.getProperty("GauntletActive"); // This will be needed for gauntlet
+            // Load the data
+            Map<String, Object> draftStatsMap = loadDraftStatsMap(props);
 
-            // Make sure that we are writing to the correct file. We should be, but just in case.
-            if (Objects.equals(humanDeckName, prevHumanDeckName)) {
-                int intAIDeckNumber = Integer.parseInt(AIOpponentDeckNumber);
-                String MWKey = "MWvs" + intAIDeckNumber;
+            // Process the results
+            if (Objects.equals(humanDeckName, draftStatsMap.get("humanDeckName"))) { // Make sure that we are writing to the correct file. We should be, but just in case.
+                String MWKey = "MWvs" + Integer.parseInt(latestAIOpponentDeckNumber);
                 String MWValue = props.getProperty(MWKey);
                 int GWValueInt = Integer.parseInt(MWValue);
                 GWValueInt++; // Just increase it as a test; CONTINUE HERE
@@ -102,6 +99,38 @@ public class DraftClassTracker {
         } else {
             System.out.println("Draft Stats file does not exist, unable to update.");
         }
+    }
+
+    private static Map<String, Object> loadDraftStatsMap(Properties props) {
+        Map<String, Object> draftStatsMap = new HashMap<>();
+
+        // Get the human deck name
+        draftStatsMap.put("humanDeckName", props.getProperty("humanDeckName", "Decky McDeckFace"));
+
+        // Load AI Deck Names
+        String[] aiDeckNames = new String[7];
+        for (int i = 0; i < 7; i++) {
+            aiDeckNames[i] = props.getProperty("AIDeckName" + (i + 1), "AI Deck " + String.valueOf(i + 1));
+        }
+        draftStatsMap.put("aiDeckNames", aiDeckNames);
+
+        // Get the variables needed for Gauntlet
+        draftStatsMap.put("gauntletActive", Boolean.parseBoolean(props.getProperty("GauntletActive", "false")));
+        draftStatsMap.put("latestAIOpponentDeckNumber", Integer.parseInt(props.getProperty("latestAIOpponentDeckNumber", "0")));
+
+        // Get the win/loss records
+        String[] keyPrefixes = {"GL", "GW", "ML", "MW"};
+        Map<String, int[]> stats = new HashMap<>();
+        for (String prefix : keyPrefixes) {
+            int[] values = new int[7];
+            for (int i = 0; i < 7; i++) {
+                values[i] = Integer.parseInt(props.getProperty(prefix + "vs" + (i + 1), "0"));
+            }
+            stats.put(prefix, values);
+        }
+        draftStatsMap.put("stats", stats);
+
+        return draftStatsMap;
     }
 
     public static Map<String, Integer> loadDraftStatsResults(String humanDeckName) {
@@ -193,11 +222,11 @@ public class DraftClassTracker {
         // Convert the CardPool to a List of card names
         ArrayList<String> cardNames = getAllCardNamesAsArrayList(cards);
 
-        // Define forbidden names to filter out
-        List<String> forbiddenNames = Arrays.asList("Plains", "Swamp", "Island", "Mountain", "Forest");
+        // Define lands to filter out
+        List<String> lands = Arrays.asList("Plains", "Swamp", "Island", "Mountain", "Forest");
 
         // Remove forbidden card names from the list
-        cardNames.removeIf(name -> forbiddenNames.contains(name));
+        cardNames.removeIf(name -> lands.contains(name));
 
         // If there are fewer than 3 cards left after filtering, return a default message
         if (cardNames.size() < 3) {
