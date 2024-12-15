@@ -270,6 +270,16 @@ public class DraftClassTracker {
         String middleWord = secondCardName.split("\\s+")[secondCardName.split("\\s+").length / 2];  // Middle word of the second card
         String lastWord = thirdCardName.split("\\s+")[thirdCardName.split("\\s+").length - 1];  // Last word of the third card
 
+        // Check if the second word starts with a lowercase character and if the first word ends with a comma
+        if (Character.isLowerCase(middleWord.charAt(0)) && firstWord.endsWith(",")) {
+            firstWord = firstWord.substring(0, firstWord.length() - 1);  // Remove the comma from the first word
+        }
+
+        // Check if the second word starts with a lowercase character and if the first word ends with a comma
+        if (Character.isLowerCase(middleWord.charAt(0)) && firstWord.endsWith("'s")) {
+            firstWord = firstWord.substring(0, firstWord.length() - 2);  // Remove the comma from the first word
+        }
+
         // Concatenate the three words into a single string
         String result = String.join(" ", firstWord, middleWord, lastWord);
 
