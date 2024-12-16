@@ -242,11 +242,11 @@ public final class SColumnUtil {
         }
         colDefs.add(ColumnDef.NAME);
         colDefs.add(ColumnDef.DECK_COLOR);
-        colDefs.add(ColumnDef.DECK_FORMAT);
-        colDefs.add(ColumnDef.DECK_EDITION);
-        colDefs.add(ColumnDef.DECK_MAIN);
-        colDefs.add(ColumnDef.DECK_SIDE);
-        colDefs.add(ColumnDef.DECK_AI);
+        colDefs.add(ColumnDef.DECK_FORMAT); // Format (Vintage, Limited, etc.)
+        colDefs.add(ColumnDef.DECK_EDITION); // Edition (Sets)
+        colDefs.add(ColumnDef.DECK_MAIN); // Cards in the deck
+        colDefs.add(ColumnDef.DECK_SIDE); // Sideboard size?
+        colDefs.add(ColumnDef.DECK_AI); // How many cards can the AI not use well?
 
         Map<ColumnDef, ItemColumnConfig> columns = getColumns(colDefs);
         columns.get(ColumnDef.DECK_FAVORITE).setSortPriority(1);
@@ -259,4 +259,33 @@ public final class SColumnUtil {
         }
         return columns;
     }
+
+    public static Map<ColumnDef, ItemColumnConfig> getDecksDrBo6Columns(boolean allowEdit, boolean includeFolder) {
+        List<ColumnDef> colDefs = new ArrayList<>();
+        colDefs.add(ColumnDef.DECK_FAVORITE);
+        if (allowEdit) {
+            colDefs.add(ColumnDef.DECK_ACTIONS);
+        }
+        if (includeFolder) {
+            colDefs.add(ColumnDef.DECK_FOLDER);
+        }
+        colDefs.add(ColumnDef.NAME);
+        colDefs.add(ColumnDef.GAMES_WON);
+        colDefs.add(ColumnDef.DECK_COLOR);
+        colDefs.add(ColumnDef.DECK_MAIN); // Cards in the deck
+        colDefs.add(ColumnDef.DECK_SIDE); // Sideboard size?
+        colDefs.add(ColumnDef.DECK_AI); // How many cards can the AI not use well?
+
+        Map<ColumnDef, ItemColumnConfig> columns = getColumns(colDefs);
+        columns.get(ColumnDef.DECK_FAVORITE).setSortPriority(1);
+        if (includeFolder) {
+            columns.get(ColumnDef.DECK_FOLDER).setSortPriority(2);
+            columns.get(ColumnDef.NAME).setSortPriority(3);
+        }
+        else {
+            columns.get(ColumnDef.NAME).setSortPriority(2);
+        }
+        return columns;
+    }
+
 }

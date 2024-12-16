@@ -91,7 +91,9 @@ public enum ItemManagerConfig {
             null, null, 3, 0),
     VANGUARDS(SColumnUtil.getDecksDefaultColumns(true, false), false, false, true,
             null, null, 3, 0),
-    DRAFT_DECKS(SColumnUtil.getDecksDefaultColumns(true, false), false, false, false,
+    /* CODE INJECTION - Original: DRAFT_DECKS(SColumnUtil.getDecksDefaultColumns(true, false), false, false, false,
+            null, null, 3, 0),*/
+    DRAFT_DECKS(SColumnUtil.getDecksDrBo6Columns(true, false), false, false, false,
             null, null, 3, 0),
     SEALED_DECKS(SColumnUtil.getDecksDefaultColumns(true, false), false, false, false,
             null, null, 3, 0),

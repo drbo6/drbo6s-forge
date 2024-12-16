@@ -23,6 +23,7 @@ import forge.card.*;
 import forge.card.mana.ManaCost;
 import forge.deck.DeckProxy;
 import forge.deck.io.DeckPreferences;
+import forge.drbo6scustoms.DraftClassTracker;
 import forge.game.GameFormat;
 import forge.gamemodes.limited.CardRanker;
 import forge.gui.card.CardPreferences;
@@ -68,6 +69,24 @@ public enum ColumnDef {
                     return from.getKey().toString();
                 return from.getKey().getName();
             }),
+
+    /**
+     * The name column.
+     */
+    // -------------------
+    // CODE INJECTION TIME
+    // -------------------
+    // This is an enumerator that provides information of each column
+    // We need to provide different languages for the shortName and longName. We just copied English everywhere.
+    // The final parameters seem to be the value used to sort and the actual content of each row.
+    // These use a lambda function (->) so that it can be iterated and changed dynamically for each deck (or card)
+    // GAMES_WON is a custom column that we are only adding to draft so we don't need as many checks and if statements. It is only shown in draft.
+    GAMES_WON("lblGames_Won", "lblGames_Won", 180, false, SortState.DESC,
+            from -> TextUtil.toSortableName(from.getKey().getName()),
+            from -> {
+                return DraftClassTracker.getDraftStatsMatchesWon(from.getKey().getName());
+            }
+    ),
 
     /**
      * The column for sorting cards in collector order.

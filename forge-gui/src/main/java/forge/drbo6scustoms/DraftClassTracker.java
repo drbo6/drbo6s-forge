@@ -199,6 +199,34 @@ public class DraftClassTracker {
         }
     }
 
+    public static String getDraftStatsMatchesWon(String humanDeckName) {
+        String fileName = "draftstats.properties";
+        String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
+        File draftStatsFile = new File(filepath);
+        Properties props = new Properties();
+        if (draftStatsFile.exists()) {
+
+            // Read properties from the existing file
+            props = ReadFromPropsFile(filepath);
+
+            // Get total wins
+            int GamesWon = 0;
+            for (int i = 1; i <= 7; i++) { // Iterate over the 7 possible AI deck numbers
+                String gameWinKey = "MWvs" + i; // Key for "Games Won" against AI deck i
+
+                // Get the values for wins and losses, defaulting to 0 if not found
+                GamesWon = GamesWon + Integer.parseInt(props.getProperty(gameWinKey, "0"));
+            }
+
+            return String.valueOf(GamesWon);
+
+        } else {
+
+            return "N/A";
+
+        }
+    }
+
     public static String[] getAllAIDeckNamesFromDraftStats(String humanDeckName) {
         // Path to the draft properties file for the specified human deck
         String fileName = "draftstats.properties";

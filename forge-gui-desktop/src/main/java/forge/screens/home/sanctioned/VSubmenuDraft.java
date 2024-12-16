@@ -59,7 +59,7 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
 
     private final JLabel lblInfo = new FLabel.Builder()
         .fontAlign(SwingConstants.LEFT).fontSize(16).fontStyle(Font.BOLD)
-        .text(localizer.getMessage("lblBuildorselectadeck")).build();
+        .text(localizer.getMessage("lblBuildorselectadeck")).build(); // This creates the Build or Select a Deck at the top of the page, it is used in the constructor below
 
     private final FLabel lblDir1 = new FLabel.Builder()
         .text(localizer.getMessage("lblDraftText1"))
@@ -73,7 +73,7 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         .text(localizer.getMessage("lblDraftText3"))
         .fontSize(12).build();
 
-    private final FLabel btnBuildDeck = new FLabel.ButtonBuilder().text(localizer.getMessage("lblNewBoosterDraftGame")).fontSize(16).build();
+    private final FLabel btnBuildDeck = new FLabel.ButtonBuilder().text(localizer.getMessage("lblNewBoosterDraftGame")).fontSize(16).build(); // This is the New Booster Draft Game button
 
     /**
      * Constructor.
@@ -82,7 +82,7 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         btnStart.setEnabled(false);
 
         lblTitle.setBackground(FSkin.getColor(FSkin.Colors.CLR_THEME2));
-        lstDecks.setCaption(localizer.getMessage("lblDraftDecks"));
+        lstDecks.setCaption(localizer.getMessage("lblDraftDecks")); // This prints Draft Decks on the page
 
         final JXButtonPanel grpPanel = new JXButtonPanel();
 
@@ -158,19 +158,19 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
      * @see forge.view.home.IViewSubmenu#populate()
      */
     @Override
-    public void populate() {
+    public void populate() { // This actually puts stuff on the page
         PnlDisplay pnlDisplay = VHomeUI.SINGLETON_INSTANCE.getPnlDisplay();
         pnlDisplay.removeAll();
         pnlDisplay.setLayout(new MigLayout("insets 0, gap 0, wrap, ax right"));
         pnlDisplay.add(lblTitle, "w 80%!, h 40px!, gap 0 0 15px 15px, ax right");
 
-        pnlDisplay.add(lblInfo, "w 80%!, h 30px!, gap 0 10% 20px 5px");
+        pnlDisplay.add(lblInfo, "w 80%!, h 30px!, gap 0 10% 20px 5px"); // Build or Select a Deck
         pnlDisplay.add(lblDir1, "gap 0 0 0 5px");
         pnlDisplay.add(lblDir2, "gap 0 0 0 5px");
         pnlDisplay.add(lblDir3, "gap 0 0 0 20px");
 
-        pnlDisplay.add(btnBuildDeck, "w 250px!, h 30px!, ax center, gap 0 10% 0 20px");
-        pnlDisplay.add(new ItemManagerContainer(lstDecks), "w 80%!, gap 0 10% 0 0, pushy, growy");
+        pnlDisplay.add(btnBuildDeck, "w 250px!, h 30px!, ax center, gap 0 10% 0 20px"); // This will let you start a draft
+        pnlDisplay.add(new ItemManagerContainer(lstDecks), "w 80%!, gap 0 10% 0 0, pushy, growy"); // This will list the decks
 
         pnlDisplay.add(pnlStart, "gap 0 10% 50px 50px, ax center");
 
