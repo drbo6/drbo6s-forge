@@ -91,9 +91,7 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         // The original code was w 200px!, h 30px!
         grpPanel.add(radSingle, "wmin 200px, growx, h 30px!");
         grpPanel.add(radMultiple, "wmin 200px, growx, h 30px!");
-        System.out.println("ACtive");
         grpPanel.add(radAll, "wmin 200px, growx, h 30px!");
-        System.out.println("inactive");
         radSingle.setSelected(true);
         grpPanel.add(cbOpponent, "wmin 200px, growx, h 30px!");
 
