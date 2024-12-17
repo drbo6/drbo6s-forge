@@ -67,6 +67,8 @@ public enum CSubmenuDraft implements ICDoc {
 
         view.getBtnBuildDeck().setCommand((UiCommand) this::setupDraft);
 
+        view.getButton("Custom").addActionListener(e -> { setupDraft(); });
+
         // CODE INJECTION
         // --------------
         // Adding some code to make it so that we can only run one game at a time

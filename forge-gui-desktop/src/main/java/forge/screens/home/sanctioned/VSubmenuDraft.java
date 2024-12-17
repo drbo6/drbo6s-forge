@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -55,6 +57,8 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
     private final LblHeader lblTitle = new LblHeader(localizer.getMessage("lblHeaderBoosterDraft"));
 
     private final JPanel pnlStart = new JPanel();
+    private final JPanel buttonPanel = new JPanel();
+
     private final StartButton btnStart  = new StartButton();
 
     private final DeckManager lstDecks = new DeckManager(GameType.Draft, CDeckEditorUI.SINGLETON_INSTANCE.getCDetailPicture());
@@ -83,6 +87,9 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
 
     private final FLabel btnBuildDeck = new FLabel.ButtonBuilder().text(localizer.getMessage("lblNewBoosterDraftGame")).fontSize(16).build(); // This is the New Booster Draft Game button
 
+    private final Map<String, JButton> imageButtons = new HashMap<>(); // Map to store buttons by name
+
+
     /**
      * Constructor.
      */
@@ -92,6 +99,16 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         lblTitle.setBackground(FSkin.getColor(FSkin.Colors.CLR_THEME2));
 
         lstDecks.setCaption(localizer.getMessage("lblDraftDecks")); // This prints Draft Decks on the page
+
+        // 4 custom buttons
+        buttonPanel.setLayout(new MigLayout("insets 0, gap 0px, flowx, ax center"));
+        buttonPanel.setBackground(null);
+        String[] buttonImages = {"Vintage", "Pauper", "Classic", "Custom"};
+        for (String image : buttonImages) {
+            JButton button = getImageButton(image);
+            imageButtons.put(image, button); // Store button in the map with the name as the key
+            buttonPanel.add(button, "w 250px!, h 75px!, gap 10 10 0 0");
+        }
 
         final JXButtonPanel grpPanel = new JXButtonPanel();
 
@@ -174,30 +191,22 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
 
         pnlDisplay.add(lblTitle, "w 80%!, h 40px!, gap 0 0 50px 20px, ax right");
         pnlDisplay.add(lblInfo, "h 30px!, gap 0 0 0 0, ax center");
-        //pnlDisplay.add(lblDir1, "gap 0 0 0 5px");
-        //pnlDisplay.add(lblDir2, "gap 0 0 0 5px");
-        //pnlDisplay.add(lblDir3, "gap 0 0 0 20px");
 
-        // BOB - CODE INJECTION (Custom method)
-        // --------------------
-        // Original code to start a draft: pnlDisplay.add(btnBuildDeck, "w 250px!, h 30px!, ax center, gap 0 10% 0 20px"); // This will let you start a draft, controller manages the clicking
-        // Create a container for the image buttons (so that they can be side by side)
-        JPanel buttonPanel = new JPanel(new MigLayout("insets 0, gap 0px, flowx, ax center"));
-        buttonPanel.setBackground(null);
-        String[] buttonImages = {"Vintage", "Pauper", "Classic", "Custom"};
-        for (String image : buttonImages) {
-            JButton button = getImageButton(image);
-            buttonPanel.add(button, "w 250px!, h 75px!, gap 10 10 0 0");
-        }
-        pnlDisplay.add(buttonPanel, "w 80%!, gap 0 0 20px 20px, pushx, growx, ax center"); // Add the button panel to the main display
+        // 4 buttons declared in the constructor
+        pnlDisplay.add(buttonPanel, "w 80%!, gap 0 0 20px 20px, pushx, growx, ax center");
 
         // Ensure gap between button panel and item manager container
-        pnlDisplay.add(new ItemManagerContainer(lstDecks), "w 80%!, gap 0 0 0 0, pushy, growy, ax center"); // This will list the decks
+        pnlDisplay.add(new ItemManagerContainer(lstDecks), "w 80%!, gap 0 0 0 0, pushy, growy, ax center");
 
         pnlDisplay.add(pnlStart, "gap 0px 0px 20px 50px, ax center"); // left, right, top, bottom
 
         pnlDisplay.repaint();
         pnlDisplay.revalidate();
+    }
+
+    // Getter for a button by its string name (key)
+    public JButton getButton(String name) {
+        return imageButtons.get(name); // Return the button associated with the given name, or null if not found
     }
 
     private static JButton getImageButton(String draft_type) {
@@ -255,9 +264,6 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
                 }
             }
         });
-
-        // Add an ActionListener to the button for interaction
-        btnImage.addActionListener(e -> System.out.println("Image button clicked!"));
 
         // Add the button to the UI layout
         return btnImage;
