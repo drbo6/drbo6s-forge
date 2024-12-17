@@ -270,13 +270,15 @@ public final class SColumnUtil {
             colDefs.add(ColumnDef.DECK_FOLDER);
         }
         colDefs.add(ColumnDef.NAME);
+        colDefs.add(ColumnDef.DECK_COLOR);
         colDefs.add(ColumnDef.MATCHES_PCT);
         colDefs.add(ColumnDef.MATCHES_WON);
         colDefs.add(ColumnDef.MATCHES_LOST);
         colDefs.add(ColumnDef.GAMES_PCT);
         colDefs.add(ColumnDef.GAMES_WON);
         colDefs.add(ColumnDef.GAMES_LOST);
-        colDefs.add(ColumnDef.DECK_COLOR);
+        colDefs.add(ColumnDef.WINNING_STREAK);
+        colDefs.add(ColumnDef.LONGEST_STREAK);
         colDefs.add(ColumnDef.DECK_MAIN); // Cards in the deck
         colDefs.add(ColumnDef.DECK_SIDE); // Sideboard size?
         colDefs.add(ColumnDef.DECK_AI); // How many cards can the AI not use well?

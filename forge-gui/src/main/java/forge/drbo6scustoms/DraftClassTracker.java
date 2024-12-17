@@ -91,23 +91,10 @@ public class DraftClassTracker {
                 }
             }
 
-            // Load the data
-            Map<String, Object> draftStatsMap = loadDraftStatsMap(props);
-
             // Process the results
-            if (Objects.equals(humanDeckName, draftStatsMap.get("humanDeckName"))) { // Make sure that we are writing to the correct file. We should be, but just in case.
+            if (Objects.equals(humanDeckName, props.getProperty("humanDeckName", ""))) { // Make sure that we are writing to the correct file. We should be, but just in case.
 
-                if (matchCompleted) {
-                    String matchWinKey = "MWvs" + latestAIOpponentDeckNumber;
-                    String matchLossKey = "MLvs" + latestAIOpponentDeckNumber;
-                    if (humanWinner) {
-                        int currentWins = Integer.parseInt(props.getProperty(matchWinKey, "0"));
-                        props.setProperty(matchWinKey, String.valueOf(currentWins + 1));
-                    } else {
-                        int currentLosses = Integer.parseInt(props.getProperty(matchLossKey, "0"));
-                        props.setProperty(matchLossKey, String.valueOf(currentLosses + 1));
-                    }
-                }
+                // Always process game results
                 String gameWinKey = "GWvs" + latestAIOpponentDeckNumber;
                 String gameLossKey = "GLvs" + latestAIOpponentDeckNumber;
                 if (humanWinner) {
@@ -118,17 +105,54 @@ public class DraftClassTracker {
                     props.setProperty(gameLossKey, String.valueOf(currentLosses + 1));
                 }
 
+                // Process match results if it was a deciding game/completed best-of-x match
+                if (matchCompleted) {
+                    String matchWinKey = "MWvs" + latestAIOpponentDeckNumber;
+                    String matchLossKey = "MLvs" + latestAIOpponentDeckNumber;
+                    if (humanWinner) {
+                        int currentWins = Integer.parseInt(props.getProperty(matchWinKey, "0"));
+                        props.setProperty(matchWinKey, String.valueOf(currentWins + 1));
+                    } else {
+                        int currentLosses = Integer.parseInt(props.getProperty(matchLossKey, "0"));
+                        props.setProperty(matchLossKey, String.valueOf(currentLosses + 1));
+                    }
+
+                    // Process streaks since it was a match
+                    int currentWinStreak = Integer.parseInt(props.getProperty("WinningStreak"));
+                    int longestWinStreak = Integer.parseInt(props.getProperty("LongestWinningStreak"));
+                    int currentLosingStreak = Integer.parseInt(props.getProperty("LosingStreak"));
+                    int longestLosingStreak = Integer.parseInt(props.getProperty("LongestLosingStreak"));
+                    if (humanWinner) {
+                        currentWinStreak = (currentWinStreak > 0) ? currentWinStreak + 1 : 1;  // Increment or start a new win streak
+                        longestWinStreak = Math.max(currentWinStreak, longestWinStreak);  // Update longest win streak
+                        currentLosingStreak = 0;  // Reset losing streak
+                    } else {
+                        currentLosingStreak = (currentLosingStreak > 0) ? currentLosingStreak + 1 : 1;  // Increment or start a new losing streak
+                        longestLosingStreak = Math.max(currentLosingStreak, longestLosingStreak);  // Update longest losing streak
+                        currentWinStreak = 0;  // Reset winning streak
+                    }
+                    props.setProperty("WinningStreak", String.valueOf(currentWinStreak));
+                    props.setProperty("LongestWinningStreak", String.valueOf(longestWinStreak));
+                    props.setProperty("LosingStreak", String.valueOf(currentLosingStreak));
+                    props.setProperty("LongestLosingStreak", String.valueOf(longestLosingStreak));
+
+                }
+
             } else {
                 System.out.println("The decks are not matching up.");
             }
 
             // Write the updated properties back to the file
             WriteToPropsFile(filepath, props);
+
         } else {
+
             System.out.println("Draft Stats file does not exist, unable to update.");
+
         }
     }
 
+    // A method to convert the props into a hashmap but we did not actually end up using it
     private static Map<String, Object> loadDraftStatsMap(Properties props) {
         Map<String, Object> draftStatsMap = new HashMap<>();
 
@@ -212,6 +236,32 @@ public class DraftClassTracker {
         }
     }
 
+    public static String getDraftStat(String humanDeckName, String stat) {
+        String fileName = "draftstats.properties";
+        String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
+        File draftStatsFile = new File(filepath);
+        Properties props = new Properties();
+        if (draftStatsFile.exists()) {
+
+            isInitializingFile = false;
+
+            // Read properties from the existing file
+            props = ReadFromPropsFile(filepath);
+
+            // Return the stat we want
+            return props.getProperty(stat, "0");
+
+        } else {
+            if (isInitializingFile) {
+                return "N/A";
+            } else {
+                isInitializingFile = true;
+                InitializeDraftStatsFile(humanDeckName);
+                return getDraftStatAggregate(humanDeckName, stat);
+            }
+        }
+    }
+
     public static String getDraftStatAggregate(String humanDeckName, String stat) {
         String fileName = "draftstats.properties";
         String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
@@ -268,7 +318,13 @@ public class DraftClassTracker {
                 GamesPlayed = GamesPlayed + Integer.parseInt(props.getProperty(gameWinKey, "0")) + Integer.parseInt(props.getProperty(gameLossKey, "0"));
             }
 
-            return (GamesPlayed == 0 ? "0%" : String.valueOf("." + Math.round(1000.0 * WinTotal / GamesPlayed)));
+            if (GamesPlayed != 0) {
+                String pct = String.valueOf(Math.round(1000.0 * WinTotal / GamesPlayed));
+                while (pct.length() < 3) { pct = "0" + pct; }
+                return "." + pct;
+            } else {
+                return ".000";
+            }
 
         } else {
             if (isInitializingFile) {

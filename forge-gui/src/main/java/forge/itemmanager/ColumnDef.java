@@ -118,6 +118,18 @@ public enum ColumnDef {
                 return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GL");
             }
     ),
+    WINNING_STREAK("lblWinning_Streak", "lblWinning_Streak", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStat(from.getKey().getName(), "WinningStreak"),
+            from -> {
+                return DraftClassTracker.getDraftStat(from.getKey().getName(), "WinningStreak");
+            }
+    ),
+    LONGEST_STREAK("lblLongest_Streak", "lblLongest_Streak", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStat(from.getKey().getName(), "LongestWinningStreak"),
+            from -> {
+                return DraftClassTracker.getDraftStat(from.getKey().getName(), "LongestWinningStreak");
+            }
+    ),
 
     /**
      * The column for sorting cards in collector order.
@@ -318,7 +330,7 @@ public enum ColumnDef {
     /**
      * The deck color column.
      */
-    DECK_COLOR("lblColor", "ttColor", 70, true, SortState.ASC,
+    DECK_COLOR("lblColor", "ttColor", 100, true, SortState.ASC,
             from -> toDeckColor(from.getKey()),
             from -> toDeckColor(from.getKey())),
     /**
