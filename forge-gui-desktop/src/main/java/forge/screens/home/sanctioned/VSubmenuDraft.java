@@ -1,13 +1,20 @@
 package forge.screens.home.sanctioned;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 import forge.game.GameType;
 import forge.gui.framework.DragCell;
@@ -15,7 +22,7 @@ import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
 import forge.itemmanager.DeckManager;
 import forge.itemmanager.ItemManagerContainer;
-import forge.model.FModel;
+import forge.localinstance.properties.ForgeConstants;
 import forge.screens.deckeditor.CDeckEditorUI;
 import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
@@ -79,10 +86,11 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
     /**
      * Constructor.
      */
-    VSubmenuDraft() {
+    VSubmenuDraft() { // This constructor just sets up the values for the stuff at the bottom of the page underneath the table. Populate() actually draws everything
         btnStart.setEnabled(false);
 
         lblTitle.setBackground(FSkin.getColor(FSkin.Colors.CLR_THEME2));
+
         lstDecks.setCaption(localizer.getMessage("lblDraftDecks")); // This prints Draft Decks on the page
 
         final JXButtonPanel grpPanel = new JXButtonPanel();
@@ -99,6 +107,7 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         pnlStart.setOpaque(false);
         pnlStart.add(grpPanel, "gapright 20");
         pnlStart.add(btnStart);
+
     }
 
     /* (non-Javadoc)
@@ -158,25 +167,103 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
      * @see forge.view.home.IViewSubmenu#populate()
      */
     @Override
-    public void populate() { // This actually puts stuff on the page
+    public void populate() { // This puts everything but the bottom menu on the page
         PnlDisplay pnlDisplay = VHomeUI.SINGLETON_INSTANCE.getPnlDisplay();
         pnlDisplay.removeAll();
         pnlDisplay.setLayout(new MigLayout("insets 0, gap 0, wrap, ax right"));
-        pnlDisplay.add(lblTitle, "w 80%!, h 40px!, gap 0 0 15px 15px, ax right");
 
-        pnlDisplay.add(lblInfo, "w 80%!, h 30px!, gap 0 10% 20px 5px"); // Build or Select a Deck
-        pnlDisplay.add(lblDir1, "gap 0 0 0 5px");
-        pnlDisplay.add(lblDir2, "gap 0 0 0 5px");
-        pnlDisplay.add(lblDir3, "gap 0 0 0 20px");
+        pnlDisplay.add(lblTitle, "w 80%!, h 40px!, gap 0 0 50px 20px, ax right");
+        pnlDisplay.add(lblInfo, "h 30px!, gap 0 0 0 0, ax center");
+        //pnlDisplay.add(lblDir1, "gap 0 0 0 5px");
+        //pnlDisplay.add(lblDir2, "gap 0 0 0 5px");
+        //pnlDisplay.add(lblDir3, "gap 0 0 0 20px");
 
-        pnlDisplay.add(btnBuildDeck, "w 250px!, h 30px!, ax center, gap 0 10% 0 20px"); // This will let you start a draft
-        pnlDisplay.add(new ItemManagerContainer(lstDecks), "w 80%!, gap 0 10% 0 0, pushy, growy"); // This will list the decks
+        // BOB - CODE INJECTION (Custom method)
+        // --------------------
+        // Original code to start a draft: pnlDisplay.add(btnBuildDeck, "w 250px!, h 30px!, ax center, gap 0 10% 0 20px"); // This will let you start a draft, controller manages the clicking
+        // Create a container for the image buttons (so that they can be side by side)
+        JPanel buttonPanel = new JPanel(new MigLayout("insets 0, gap 0px, flowx, ax center"));
+        buttonPanel.setBackground(null);
+        String[] buttonImages = {"Vintage", "Pauper", "Classic", "Custom"};
+        for (String image : buttonImages) {
+            JButton button = getImageButton(image);
+            buttonPanel.add(button, "w 250px!, h 75px!, gap 10 10 0 0");
+        }
+        pnlDisplay.add(buttonPanel, "w 80%!, gap 0 0 20px 20px, pushx, growx, ax center"); // Add the button panel to the main display
 
-        pnlDisplay.add(pnlStart, "gap 0 10% 50px 50px, ax center");
+        // Ensure gap between button panel and item manager container
+        pnlDisplay.add(new ItemManagerContainer(lstDecks), "w 80%!, gap 0 0 0 0, pushy, growy, ax center"); // This will list the decks
+
+        pnlDisplay.add(pnlStart, "gap 0px 0px 20px 50px, ax center"); // left, right, top, bottom
 
         pnlDisplay.repaint();
         pnlDisplay.revalidate();
     }
+
+    private static JButton getImageButton(String draft_type) {
+        final BufferedImage buttonImage;
+        final BufferedImage buttonImageHover;
+        final BufferedImage buttonImageClicked;
+
+        try {
+            // Load normal, hover, and clicked images
+            buttonImage = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_reg.jpg"));
+            buttonImageHover = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_hov.jpg"));
+            buttonImageClicked = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_clk.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Handle the case when the images cannot be loaded
+        }
+
+        // Create a JButton with the image
+        JButton btnImage = new JButton();
+        if (buttonImage != null) {
+            btnImage.setIcon(new ImageIcon(buttonImage));  // Default icon
+            btnImage.setToolTipText("Launch a " + draft_type + " draft");
+        }
+        btnImage.setFocusPainted(false);
+        btnImage.setBorderPainted(false);
+        btnImage.setContentAreaFilled(false); // Makes the button look cleaner without default background
+
+        // MouseListener for hover and click state change
+        btnImage.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (buttonImageHover != null) {
+                    btnImage.setIcon(new ImageIcon(buttonImageHover));  // Change to hover icon
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (buttonImage != null) {
+                    btnImage.setIcon(new ImageIcon(buttonImage));  // Revert to default icon when hover ends
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (buttonImageClicked != null) {
+                    btnImage.setIcon(new ImageIcon(buttonImageClicked));  // Change to clicked icon
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (buttonImageHover != null) {
+                    btnImage.setIcon(new ImageIcon(buttonImageHover));  // Change back to hover icon after release
+                }
+            }
+        });
+
+        // Add an ActionListener to the button for interaction
+        btnImage.addActionListener(e -> System.out.println("Image button clicked!"));
+
+        // Add the button to the UI layout
+        return btnImage;
+    }
+
+
 
     /* (non-Javadoc)
      * @see forge.gui.framework.IVDoc#getDocumentID()
