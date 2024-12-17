@@ -22,7 +22,6 @@ public class DraftClassTracker {
         Properties props = new Properties();
         if (!draftStatsFile.exists()) {
             props.setProperty("humanDeckName", humanDeckName);
-            props.setProperty("latestAIOpponentDeckNumber", "0");
             for (int i = 1; i <= 7; i++) {
                 props.setProperty("AIDeckName" + i, getAIDeckName(humanDeckName, i, 0)); // Games won vs AI
                 props.setProperty("GWvs" + i, "0"); // Games won vs AI
@@ -35,9 +34,8 @@ public class DraftClassTracker {
             props.setProperty("LongestWinningStreak", "0");
             props.setProperty("LongestLosingStreak", "0");
             props.setProperty("GauntletActive", "false");
+            props.setProperty("latestAIOpponentDeckNumber", "0");
             WriteToPropsFile(filepath, props);
-        } else {
-            //System.out.println(filepath + " exists. No need to create the file at this time.");
         }
     }
 
@@ -85,11 +83,6 @@ public class DraftClassTracker {
                     }
                 }
             }
-
-            // See if we are in a gauntlet
-            // This method is obviously flawed but I didn't find an easy way to track this in the code
-            // If you start multiple gauntlets at the same time, this will cause issues
-            String gauntletActive = props.getProperty("GauntletActive", "false");
 
             // Load the data
             Map<String, Object> draftStatsMap = loadDraftStatsMap(props);
@@ -143,6 +136,8 @@ public class DraftClassTracker {
         draftStatsMap.put("aiDeckNames", aiDeckNames);
 
         // Get the variables needed for Gauntlet
+        // I don't think I ever actually use them as I found another way to check for Gauntlets and the AI deck number
+        // The gauntletActive is set when launching one, but it is never turned off
         draftStatsMap.put("gauntletActive", Boolean.parseBoolean(props.getProperty("GauntletActive", "false")));
         draftStatsMap.put("latestAIOpponentDeckNumber", Integer.parseInt(props.getProperty("latestAIOpponentDeckNumber", "0")));
 

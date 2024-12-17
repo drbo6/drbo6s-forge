@@ -15,6 +15,7 @@ import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
 import forge.itemmanager.DeckManager;
 import forge.itemmanager.ItemManagerContainer;
+import forge.model.FModel;
 import forge.screens.deckeditor.CDeckEditorUI;
 import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
@@ -90,7 +91,9 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         // The original code was w 200px!, h 30px!
         grpPanel.add(radSingle, "wmin 200px, growx, h 30px!");
         grpPanel.add(radMultiple, "wmin 200px, growx, h 30px!");
+        System.out.println("ACtive");
         grpPanel.add(radAll, "wmin 200px, growx, h 30px!");
+        System.out.println("inactive");
         radSingle.setSelected(true);
         grpPanel.add(cbOpponent, "wmin 200px, growx, h 30px!");
 
@@ -99,7 +102,6 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         pnlStart.add(grpPanel, "gapright 20");
         pnlStart.add(btnStart);
     }
-
 
     /* (non-Javadoc)
      * @see forge.view.home.IViewSubmenu#getGroup()
