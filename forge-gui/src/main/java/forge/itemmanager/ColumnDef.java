@@ -48,6 +48,7 @@ import java.util.Set;
 public enum ColumnDef {
     /**
      * The column containing the inventory item name.
+     * These are the enum labels, the actual constructor is below under ColumnDef
      */
     STRING("", "", 0, false, SortState.ASC,
             from -> from.getKey() instanceof Comparable<?> ? (Comparable<?>) from.getKey() : from.getKey().getName(),
@@ -81,10 +82,40 @@ public enum ColumnDef {
     // The final parameters seem to be the value used to sort and the actual content of each row.
     // These use a lambda function (->) so that it can be iterated and changed dynamically for each deck (or card)
     // GAMES_WON is a custom column that we are only adding to draft so we don't need as many checks and if statements. It is only shown in draft.
-    GAMES_WON("lblGames_Won", "lblGames_Won", 180, false, SortState.DESC,
-            from -> TextUtil.toSortableName(from.getKey().getName()),
+    MATCHES_PCT("lblMatches_Pct", "lblMatches_Pct", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "M"),
             from -> {
-                return DraftClassTracker.getDraftStatsMatchesWon(from.getKey().getName());
+                return DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "M");
+            }
+    ),
+    GAMES_PCT("lblGames_Pct", "lblGames_Pct", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "G"),
+            from -> {
+                return DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "G");
+            }
+    ),
+    MATCHES_WON("lblMatches_Won", "lblMatches_Won", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "MW"),
+            from -> {
+                return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "MW");
+            }
+    ),
+    MATCHES_LOST("lblMatches_Lost", "lblMatches_Lost", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "ML"),
+            from -> {
+                return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "ML");
+            }
+    ),
+    GAMES_WON("lblGames_Won", "lblGames_Won", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GW"),
+            from -> {
+                return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GW");
+            }
+    ),
+    GAMES_LOST("lblGames_Lost", "lblGames_Lost", 60, true, SortState.DESC,
+            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GL"),
+            from -> {
+                return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GL");
             }
     ),
 

@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.ArrayList;
 
 public class DraftClassTracker {
+    private static boolean isInitializingFile = false;
 
     public static void InitializeDraftStatsFile(String humanDeckName) {
         String fileName = "draftstats.properties";
@@ -29,6 +30,10 @@ public class DraftClassTracker {
                 props.setProperty("MWvs" + i, "0"); // Matches won vs AI
                 props.setProperty("MLvs" + i, "0");
             }
+            props.setProperty("WinningStreak", "0");
+            props.setProperty("LosingStreak", "0");
+            props.setProperty("LongestWinningStreak", "0");
+            props.setProperty("LongestLosingStreak", "0");
             props.setProperty("GauntletActive", "false");
             WriteToPropsFile(filepath, props);
         } else {
@@ -63,7 +68,7 @@ public class DraftClassTracker {
             props = ReadFromPropsFile(filepath);
 
             // Cancel the operation if any of the keys does not exist
-            String[] requiredKeys = {"humanDeckName", "latestAIOpponentDeckNumber", "GauntletActive"};
+            String[] requiredKeys = {"humanDeckName", "latestAIOpponentDeckNumber", "GauntletActive", "WinningStreak", "LosingStreak", "LongestWinningStreak", "LongestLosingStreak"};
             for (String key : requiredKeys) {
                 if (!props.containsKey(key)) {
                     System.out.println("One or more required keys are missing from the properties file. Cancelling operation.");
@@ -141,6 +146,12 @@ public class DraftClassTracker {
         draftStatsMap.put("gauntletActive", Boolean.parseBoolean(props.getProperty("GauntletActive", "false")));
         draftStatsMap.put("latestAIOpponentDeckNumber", Integer.parseInt(props.getProperty("latestAIOpponentDeckNumber", "0")));
 
+        // Get the winning streak variables
+        draftStatsMap.put("WinningStreak", props.getProperty("WinningStreak", "0"));
+        draftStatsMap.put("LosingStreak", props.getProperty("LosingStreak", "0"));
+        draftStatsMap.put("LongestWinningStreak", props.getProperty("LongestWinningStreak", "0"));
+        draftStatsMap.put("LongestLosingStreak", props.getProperty("LongestLosingStreak", "0"));
+
         // Get the win/loss records
         String[] keyPrefixes = {"GL", "GW", "ML", "MW"};
         Map<String, int[]> stats = new HashMap<>();
@@ -199,7 +210,41 @@ public class DraftClassTracker {
         }
     }
 
-    public static String getDraftStatsMatchesWon(String humanDeckName) {
+    public static String getDraftStatAggregate(String humanDeckName, String stat) {
+        String fileName = "draftstats.properties";
+        String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
+        File draftStatsFile = new File(filepath);
+        Properties props = new Properties();
+        if (draftStatsFile.exists()) {
+
+            isInitializingFile = false;
+
+            // Read properties from the existing file
+            props = ReadFromPropsFile(filepath);
+
+            // Get total of the Stat Value
+            int StatTotal = 0;
+            for (int i = 1; i <= 7; i++) { // Iterate over the 7 possible AI deck numbers
+                String gameWinKey = stat + "vs" + i; // Key for "Games Won" against AI deck i
+
+                // Get the values for wins and losses, defaulting to 0 if not found
+                StatTotal = StatTotal + Integer.parseInt(props.getProperty(gameWinKey, "0"));
+            }
+
+            return String.valueOf(StatTotal);
+
+        } else {
+            if (isInitializingFile) {
+                return "N/A";
+            } else {
+                isInitializingFile = true;
+                InitializeDraftStatsFile(humanDeckName);
+                return getDraftStatAggregate(humanDeckName, stat);
+            }
+        }
+    }
+
+    public static String getDraftStatPercentage(String humanDeckName, String stat) {
         String fileName = "draftstats.properties";
         String filepath = ForgeConstants.DECK_DRAFT_DIR + humanDeckName + ForgeConstants.PATH_SEPARATOR + fileName;
         File draftStatsFile = new File(filepath);
@@ -209,21 +254,28 @@ public class DraftClassTracker {
             // Read properties from the existing file
             props = ReadFromPropsFile(filepath);
 
-            // Get total wins
-            int GamesWon = 0;
+            // Get total of the Stat Value
+            int WinTotal = 0;
+            int GamesPlayed = 0;
             for (int i = 1; i <= 7; i++) { // Iterate over the 7 possible AI deck numbers
-                String gameWinKey = "MWvs" + i; // Key for "Games Won" against AI deck i
+                String gameWinKey = stat + "Wvs" + i; // Key for "Games Won" against AI deck i
+                String gameLossKey = stat + "Lvs" + i; // Key for "Games Won" against AI deck i
 
                 // Get the values for wins and losses, defaulting to 0 if not found
-                GamesWon = GamesWon + Integer.parseInt(props.getProperty(gameWinKey, "0"));
+                WinTotal = WinTotal + Integer.parseInt(props.getProperty(gameWinKey, "0"));
+                GamesPlayed = GamesPlayed + Integer.parseInt(props.getProperty(gameWinKey, "0")) + Integer.parseInt(props.getProperty(gameLossKey, "0"));
             }
 
-            return String.valueOf(GamesWon);
+            return (GamesPlayed == 0 ? "0%" : String.valueOf("." + Math.round(1000.0 * WinTotal / GamesPlayed)));
 
         } else {
-
-            return "N/A";
-
+            if (isInitializingFile) {
+                return "N/A";
+            } else {
+                isInitializingFile = true;
+                InitializeDraftStatsFile(humanDeckName);
+                return getDraftStatPercentage(humanDeckName, stat);
+            }
         }
     }
 

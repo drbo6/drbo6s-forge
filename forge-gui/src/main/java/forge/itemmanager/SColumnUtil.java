@@ -270,7 +270,12 @@ public final class SColumnUtil {
             colDefs.add(ColumnDef.DECK_FOLDER);
         }
         colDefs.add(ColumnDef.NAME);
+        colDefs.add(ColumnDef.MATCHES_PCT);
+        colDefs.add(ColumnDef.MATCHES_WON);
+        colDefs.add(ColumnDef.MATCHES_LOST);
+        colDefs.add(ColumnDef.GAMES_PCT);
         colDefs.add(ColumnDef.GAMES_WON);
+        colDefs.add(ColumnDef.GAMES_LOST);
         colDefs.add(ColumnDef.DECK_COLOR);
         colDefs.add(ColumnDef.DECK_MAIN); // Cards in the deck
         colDefs.add(ColumnDef.DECK_SIDE); // Sideboard size?
@@ -280,10 +285,11 @@ public final class SColumnUtil {
         columns.get(ColumnDef.DECK_FAVORITE).setSortPriority(1);
         if (includeFolder) {
             columns.get(ColumnDef.DECK_FOLDER).setSortPriority(2);
-            columns.get(ColumnDef.NAME).setSortPriority(3);
+            columns.get(ColumnDef.MATCHES_PCT).setSortPriority(3);
+            //columns.get(ColumnDef.NAME).setSortPriority(3);
         }
         else {
-            columns.get(ColumnDef.NAME).setSortPriority(2);
+            columns.get(ColumnDef.MATCHES_PCT).setSortPriority(2);
         }
         return columns;
     }
