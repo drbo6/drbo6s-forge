@@ -82,6 +82,15 @@ public class BoosterDraft implements IBoosterDraft {
         return draft;
     }
 
+    public static BoosterDraft drBo6sCreateDraft(final LimitedPoolType draftType, String cube_name) {
+        final BoosterDraft draft = new BoosterDraft(draftType);
+        if (!draft.generateDrBo6sProduct(cube_name)) {
+            return null;
+        }
+        draft.initializeBoosters();
+        return draft;
+    }
+
     protected boolean generateProduct() {
         switch (this.draftFormat) {
             case Full: // Draft from all cards in Forge
@@ -228,6 +237,13 @@ public class BoosterDraft implements IBoosterDraft {
                 throw new NoSuchElementException("Draft for mode " + this.draftFormat + " has not been set up!");
         }
 
+        return true;
+    }
+
+    protected boolean generateDrBo6sProduct(String cube_name) {
+        final List<String> dfData = FileUtil.readFile(ForgeConstants.DRAFT_DIR + cube_name + ".draft");
+        final CustomLimited customDraft = CustomLimited.parse(dfData, FModel.getDecks().getCubes());
+        this.setupCustomDraft(customDraft);
         return true;
     }
 

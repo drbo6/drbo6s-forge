@@ -67,6 +67,9 @@ public enum CSubmenuDraft implements ICDoc {
 
         view.getBtnBuildDeck().setCommand((UiCommand) this::setupDraft);
 
+        view.getButton("Vintage").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Vintage Cube"); });
+        view.getButton("Pauper").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Pauper Cube"); });
+        view.getButton("Classic").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Classic Cube"); });
         view.getButton("Custom").addActionListener(e -> { setupDraft(); });
 
         // CODE INJECTION
@@ -253,6 +256,22 @@ public enum CSubmenuDraft implements ICDoc {
         if (poolType == null) { return; }
 
         final BoosterDraft draft = BoosterDraft.createDraft(poolType);
+        if (draft == null) { return; }
+
+        final CEditorDraftingProcess draftController = new CEditorDraftingProcess(CDeckEditorUI.SINGLETON_INSTANCE.getCDetailPicture());
+        draftController.showGui(draft);
+
+        Singletons.getControl().setCurrentScreen(FScreen.DRAFTING_PROCESS);
+        CDeckEditorUI.SINGLETON_INSTANCE.setEditorController(draftController);
+        VProbabilities.SINGLETON_INSTANCE.getLayoutControl().update();
+        VStatistics.SINGLETON_INSTANCE.getLayoutControl().update();
+
+    }
+
+    private void DrBo6sSetupDraft(String cube_name) {
+        final LimitedPoolType poolType = LimitedPoolType.Custom; // Straight to Cube
+
+        final BoosterDraft draft = BoosterDraft.drBo6sCreateDraft(poolType, cube_name);
         if (draft == null) { return; }
 
         final CEditorDraftingProcess draftController = new CEditorDraftingProcess(CDeckEditorUI.SINGLETON_INSTANCE.getCDetailPicture());

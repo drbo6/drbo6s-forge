@@ -1,0 +1,810 @@
+[metadata]
+Code=BO6
+Date=2021-09-18
+Name=DrBo6's Proxies
+Code2=BO6
+MciCode=bo6
+Type=Other
+BoosterCovers=1
+Booster=15 Common
+ScryfallCode=BO6
+
+[cards]
+1 C Dauntless Bodyguard
+2 C Isamaru, Hound of Konda
+3 C Kytheon, Hero of Akros
+4 C Mother of Runes
+5 C Skymarcher Aspirant
+6 C Soldier of the Pantheon
+7 C Student of Warfare
+8 C Usher of the Fallen
+9 C Adanto Vanguard
+10 C Imposing Sovereign
+11 C Intrepid Adversary
+12 C Luminarch Aspirant
+13 C Remorseful Cleric
+14 C Selfless Spirit
+15 C Stoneforge Mystic
+16 C Thalia, Guardian of Thraben
+17 C Wall of Omens
+18 C Blade Splicer
+19 C Brimaz, King of Oreskos
+20 C Elite Spellbinder
+21 C Flickerwisp
+22 C Monastery Mentor
+23 C Recruiter of the Guard
+24 C Skyclave Apparition
+25 C Thalia, Heretic Cathar
+26 C Hero of Bladehold
+27 C Palace Jailer
+28 C Restoration Angel
+29 C Sublime Archangel
+30 C Angel of Invention
+31 C Archangel Avacyn
+32 C Solitude
+33 C Sun Titan
+34 C Elesh Norn, Grand Cenobite
+35 C Gideon Blackblade
+36 C Elspeth, Knight-Errant
+37 C Gideon, Ally of Zendikar
+38 C Serra the Benevolent
+39 C Gideon Jura
+40 C Elspeth, Sun's Champion
+41 C Enlightened Tutor
+42 C Mana Tithe
+43 C Path to Exile
+44 C Secure the Wastes
+45 C Swords to Plowshares
+46 C Fateful Absence
+47 C Unexpectedly Absent
+48 C Balance
+49 C Winds of Abandon
+50 C Council's Judgment
+51 C Armageddon
+52 C Day of Judgment
+53 C Ravages of War
+54 C Wrath of God
+55 C Emeria's Call
+56 C Portable Hole
+57 C Land Tax
+58 C Banishing Light
+59 C Oblivion Ring
+60 C Moat
+61 C Jace, Vryn's Prodigy
+62 C Phantasmal Image
+63 C Snapcaster Mage
+64 C Suspicious Stowaway
+65 C Thieving Skydiver
+66 C Brazen Borrower
+67 C Hullbreacher
+68 C True-Name Nemesis
+69 C Vendilion Clique
+70 C Glen Elendra Archmage
+71 C Sower of Temptation
+72 C Subtlety
+73 C Urza, Lord High Artificer
+74 C Venser, Shaper Savant
+75 C Whirler Rogue
+76 C Mulldrifter
+77 C Consecrated Sphinx
+78 C Torrential Gearhulk
+79 C Inkwell Leviathan
+80 C Mu Yanling, Sky Dancer
+81 C Narset, Parter of Veils
+82 C Jace, Architect of Thought
+83 C Jace, the Mind Sculptor
+84 C Will Kenrith
+85 C Ancestral Recall
+86 C Brainstorm
+87 C Condescend
+88 C Force Spike
+89 C Mystical Tutor
+90 C Counterspell
+91 C Daze
+92 C Impulse
+93 C Mana Drain
+94 C Mana Leak
+95 C Memory Lapse
+96 C Miscalculation
+97 C Remand
+98 C Forbid
+99 C Cryptic Command
+100 C Fact or Fiction
+101 C Force of Will
+102 C Mystic Confluence
+103 C Commit // Memory
+104 C Dig Through Time
+105 C Ponder
+106 C Preordain
+107 C Chart a Course
+108 C Time Walk
+109 C Show and Tell
+110 C Timetwister
+111 C Tinker
+112 C Bribery
+113 C Time Spiral
+114 C Upheaval
+115 C Treasure Cruise
+116 C Vedalken Shackles
+117 C Control Magic
+118 C Opposition
+119 C Treachery
+120 C Shark Typhoon
+121 C Bloodsoaked Champion
+122 C Carnophage
+123 C Diregraf Ghoul
+124 C Dread Wanderer
+125 C Gravecrawler
+126 C Gutterbones
+127 C Sarcomancy
+128 C Bloodghast
+129 C Dark Confidant
+130 C Dauthi Voidwalker
+131 C Kitesail Freebooter
+132 C Nullpriest of Oblivion
+133 C Oona's Prowler
+134 C Order of Midnight
+135 C Pack Rat
+136 C Skyclave Shade
+137 C Tourach, Dread Cantor
+138 C Drana, Liberator of Malakir
+139 C Flesh Carver
+140 C Mardu Strike Leader
+141 C Murderous Rider
+142 C Nighthawk Scavenger
+143 C Ophiomancer
+144 C Braids, Cabal Minion
+145 C Grief
+146 C Kalitas, Traitor of Ghet
+147 C Rankle, Master of Pranks
+148 C Ravenous Chupacabra
+149 C Custodi Lich
+150 C Shriekmaw
+151 C Grave Titan
+152 C Griselbrand
+153 C Liliana of the Veil
+154 C Liliana, the Last Hope
+155 C Ob Nixilis Reignited
+156 C Liliana, Dreadhorde General
+157 C Dark Ritual
+158 C Vampiric Tutor
+159 C Heartless Act
+160 C Infernal Grasp
+161 C Baleful Mastery
+162 C Snuff Out
+163 C Duress
+164 C Imperial Seal
+165 C Inquisition of Kozilek
+166 C Mind Twist
+167 C Reanimate
+168 C Thoughtseize
+169 C Demonic Tutor
+170 C Hymn to Tourach
+171 C Sinkhole
+172 C Toxic Deluge
+173 C Damnation
+174 C Bolas's Citadel
+175 C Animate Dead
+176 C Bitterblossom
+177 C Necromancy
+178 C Recurring Nightmare
+179 C Nether Void
+180 C Volrath's Stronghold
+181 C Falkenrath Pit Fighter
+182 C Firedrinker Satyr
+183 C Goblin Guide
+184 C Grim Lavamancer
+185 C Monastery Swiftspear
+186 C Ragavan, Nimble Pilferer
+187 C Rakdos Cackler
+188 C Zurgo Bellstriker
+189 C Bloodthirsty Adversary
+190 C Dire Fleet Daredevil
+191 C Earthshaker Khenra
+192 C Embereth Shieldbreaker
+193 C Flametongue Yearling
+194 C Goblin Cratermaker
+195 C Kari Zev, Skyship Raider
+196 C Robber of the Rich
+197 C Young Pyromancer
+198 C Bonecrusher Giant
+199 C Goblin Rabblemaster
+200 C Imperial Recruiter
+201 C Laelia, the Blade Reforged
+202 C Legion Warboss
+203 C Phoenix of Ash
+204 C Seasoned Pyromancer
+205 C Flametongue Kavu
+206 C Hazoret the Fervent
+207 C Hellrider
+208 C Pia and Kiran Nalaar
+209 C Fury
+210 C Ilharg, the Raze-Boar
+211 C Siege-Gang Commander
+212 C Thundermaw Hellkite
+213 C Zealous Conscripts
+214 C Inferno Titan
+215 C Chandra, Acolyte of Flame
+216 C Chandra, Torch of Defiance
+217 C Koth of the Hammer
+218 C Chandra, Awakened Inferno
+219 C Burst Lightning
+220 C Lightning Bolt
+221 C Abrade
+222 C Incinerate
+223 C Magma Jet
+224 C Searing Spear
+225 C Char
+226 C Through the Breach
+227 C Fireblast
+228 C Chain Lightning
+229 C Faithless Looting
+230 C Firebolt
+231 C Rolling Earthquake
+232 C Arc Trail
+233 C Arc Lightning
+234 C Insult // Injury
+235 C Wheel of Fortune
+236 C Fiery Confluence
+237 C Burning of Xinye
+238 C Wildfire
+239 C Sulfuric Vortex
+240 C Sneak Attack
+241 C Arbor Elf
+242 C Birds of Paradise
+243 C Elvish Mystic
+244 C Hexdrinker
+245 C Ignoble Hierarch
+246 C Joraga Treespeaker
+247 C Llanowar Elves
+248 C Noble Hierarch
+249 C Fauna Shaman
+250 C Outland Liberator
+251 C Rofellos, Llanowar Emissary
+252 C Sakura-Tribe Elder
+253 C Scavenging Ooze
+254 C Sylvan Caryatid
+255 C Wall of Roots
+256 C Courser of Kruphix
+257 C Den Protector
+258 C Eternal Witness
+259 C Nissa, Vastwood Seer
+260 C Reclamation Sage
+261 C Tireless Tracker
+262 C Yavimaya Elder
+263 C Nightpack Ambusher
+264 C Oracle of Mul Daya
+265 C Questing Beast
+266 C Toski, Bearer of Secrets
+267 C Voracious Hydra
+268 C Deep Forest Hermit
+269 C Deranged Hermit
+270 C Thragtusk
+271 C Primeval Titan
+272 C Tovolar's Huntmaster
+273 C Hornet Queen
+274 C Craterhoof Behemoth
+275 C Terastodon
+276 C Woodfall Primus
+277 C Nissa, Voice of Zendikar
+278 C Garruk Relentless
+279 C Garruk Wildspeaker
+280 C Nissa, Who Shakes the World
+281 C Vivien, Monsters' Advocate
+282 C Once Upon a Time
+283 C Green Sun's Zenith
+284 C Pest Infestation
+285 C Bala Ged Recovery
+286 C Cultivate
+287 C Kodama's Reach
+288 C Natural Order
+289 C Plow Under
+290 C Selvala's Stampede
+291 C Tooth and Nail
+292 C Turntimber Symbiosis
+293 C Utopia Sprawl
+294 C Wild Growth
+295 C Oath of Druids
+296 C Survival of the Fittest
+297 C Sylvan Library
+298 C Song of the Dryads
+299 C Paradox Zone
+300 C Gaea's Cradle
+301 C Talisman of Progress
+302 C Teferi, Time Raveler
+303 C Fractured Identity
+304 C Teferi, Hero of Dominaria
+305 C Baleful Strix
+306 C Talisman of Dominance
+307 C Notion Thief
+308 C The Scarab God
+309 C Kroxa, Titan of Death's Hunger
+310 C Talisman of Indulgence
+311 C Daretti, Ingenious Iconoclast
+312 C Kolaghan's Command
+313 C Talisman of Impulse
+314 C Wrenn and Six
+315 C Bloodbraid Elf
+316 C Dragonlord Atarka
+317 C Qasali Pridemage
+318 C Talisman of Unity
+319 C Kitchen Finks
+320 C Knight of Autumn
+321 C Talisman of Hierarchy
+322 C Lingering Souls
+323 C Damn
+324 C Sorin, Lord of Innistrad
+325 C Talisman of Creativity
+326 C Dack Fayden
+327 C Saheeli, Sublime Artificer
+328 C Dack's Duplicate
+329 C Assassin's Trophy
+330 C Talisman of Resilience
+331 C Grist, the Hunger Tide
+332 C Pernicious Deed
+333 C Figure of Destiny
+334 C Rip Apart
+335 C Talisman of Conviction
+336 C Ajani Vengeant
+337 C Talisman of Curiosity
+338 C Oko, Thief of Crowns
+339 C Uro, Titan of Nature's Wrath
+340 C Hydroid Krasis
+341 C Maelstrom Wanderer
+342 C Tasigur, the Golden Fang
+343 C Engineered Explosives
+344 C Prismatic Ending
+345 C Phyrexian Revoker
+346 C Porcelain Legionnaire
+347 C Scrapheap Scrounger
+348 C Spellskite
+349 C Hangarback Walker
+350 C Phyrexian Metamorph
+351 C Solemn Simulacrum
+352 C Walking Ballista
+353 C Batterskull
+354 C Wurmcoil Engine
+355 C Myr Battlesphere
+356 C Blightsteel Colossus
+357 C Emrakul, the Aeons Torn
+358 C Emrakul, the Promised End
+359 C Sundering Titan
+360 C Ulamog, the Ceaseless Hunger
+361 C Karn, Scion of Urza
+362 C Ugin, the Ineffable
+363 C Karn Liberated
+364 C Ugin, the Spirit Dragon
+365 C Dismember
+366 C Black Lotus
+367 C Mana Crypt
+368 C Mox Diamond
+369 C Mox Emerald
+370 C Mox Jet
+371 C Mox Pearl
+372 C Mox Ruby
+373 C Mox Sapphire
+374 C Bonesplitter
+375 C Mana Vault
+376 C Sensei's Divining Top
+377 C Skullclamp
+378 C Sol Ring
+379 C Coldsteel Heart
+380 C Grim Monolith
+381 C Scroll Rack
+382 C Smuggler's Copter
+383 C Umezawa's Jitte
+384 C Winter Orb
+385 C Coalition Relic
+386 C Crucible of Worlds
+387 C Sword of Body and Mind
+388 C Sword of Feast and Famine
+389 C Sword of Fire and Ice
+390 C Sword of Light and Shadow
+391 C Sword of War and Peace
+392 C Tangle Wire
+393 C Fleetwheel Cruiser
+394 C Smokestack
+395 C Thran Dynamo
+396 C Gilded Lotus
+397 C Celestial Colonnade
+398 C Flooded Strand
+399 C Hallowed Fountain
+400 C Tundra
+401 C Creeping Tar Pit
+402 C Polluted Delta
+403 C Underground Sea
+404 C Watery Grave
+405 C Badlands
+406 C Blightstep Pathway
+407 C Blood Crypt
+408 C Bloodstained Mire
+409 C Raging Ravine
+410 C Stomping Ground
+411 C Taiga
+412 C Wooded Foothills
+413 C Horizon Canopy
+414 C Savannah
+415 C Temple Garden
+416 C Windswept Heath
+417 C Godless Shrine
+418 C Marsh Flats
+419 C Scrubland
+420 C Silent Clearing
+421 C Scalding Tarn
+422 C Steam Vents
+423 C Volcanic Island
+424 C Wandering Fumarole
+425 C Bayou
+426 C Nurturing Peatland
+427 C Overgrown Tomb
+428 C Verdant Catacombs
+429 C Arid Mesa
+430 C Plateau
+431 C Sacred Foundry
+432 C Sunbaked Canyon
+433 C Breeding Pool
+434 C Lumbering Falls
+435 C Misty Rainforest
+436 C Tropical Island
+437 C Prismatic Vista
+438 C Ancient Tomb
+439 C Blast Zone
+440 C City of Brass
+441 C Fabled Passage
+442 C Gemstone Mine
+443 C Library of Alexandria
+444 C Mana Confluence
+445 C Maze of Ith
+446 C Mishra's Factory
+447 C Mutavault
+448 C Rishadan Port
+449 C Strip Mine
+450 C Wasteland
+451 C Abrupt Decay
+452 C Abundant Harvest
+453 C Adarkar Wastes
+454 C Adeline, Resplendent Cathar
+455 C Ancient Stone Idol
+456 C Arcane Denial
+457 C Archon of Cruelty
+458 C Ascendant Packleader
+459 C Ash Barrens
+460 C Avacyn's Pilgrim
+461 C Azorius Signet
+462 C Barkchannel Pathway
+463 C Basalt Monolith
+464 C Battlefield Forge
+465 C Blackcleave Cliffs
+466 C Bloodchief's Thirst
+467 C Boros Signet
+468 C Borrowed Time
+469 C Branchloft Pathway
+470 C Brightclimb Pathway
+471 C Brushland
+472 C Cabal Initiate
+473 C Carnage Tyrant
+474 C Cathar Commando
+475 C Cathartic Pyre
+476 C Cave of the Frost Dragon
+477 C Caves of Koilos
+478 C Channel
+479 C Chrome Mox
+480 C Clearwater Pathway
+481 C Collective Brutality
+482 C Consider
+483 C Copperline Gorge
+484 C Cragcrown Pathway
+485 C Dance of the Dead
+486 C Daretti, Scrap Savant
+487 C Darkbore Pathway
+488 C Darkslick Shores
+489 C Den of the Bugbear
+490 C Dimir Signet
+491 C Disenchant
+492 C Dismissive Pyromancer
+493 C Domri, Anarch of Bolas
+494 C Dread Fugue
+495 C Dreadbore
+496 C Dryad Militant
+497 C Dust Bowl
+498 C Edric, Spymaster of Trest
+499 C Eidolon of the Great Revel
+500 C Entomb
+501 C Ephemerate
+502 C Esika's Chariot
+503 C Eureka
+504 C Everflowing Chalice
+505 C Evolving Wilds
+506 C Exalted Angel
+507 C Exhume
+508 C Experiment One
+509 C Faerie Conclave
+510 C Falkenrath Gorger
+511 C Fatal Push
+512 C Feldon of the Third Path
+513 C Fiery Islet
+514 C Fire // Ice
+515 C Firestorm
+516 C Force of Negation
+517 C Fyndhorn Elves
+518 C Gilded Goose
+519 C Gitaxian Probe
+520 C Giver of Runes
+521 C Goblin Engineer
+522 C Goblin Welder
+523 C Golgari Signet
+524 C Grafted Wargear
+525 C Grand Coliseum
+526 C Greater Gargadon
+527 C Gruul Signet
+528 C Hall of Storm Giants
+529 C Hand of Vecna
+530 C Hanweir Garrison
+531 C Hedron Archive
+532 C Heirloom Blade
+533 C Hengegate Pathway
+534 C Hero's Downfall
+535 C Hissing Quagmire
+536 C Hive of the Eye Tyrant
+537 C Izzet Charm
+538 C Izzet Signet
+539 C Jeweled Amulet
+540 C Karakas
+541 C Karplusan Forest
+542 C Kessig Prowler
+543 C Kor Skyfisher
+544 C Krenko, Tin Street Kingpin
+545 C Lair of the Hydra
+546 C Languish
+547 C Lavaclaw Reaches
+548 C Leovold, Emissary of Trest
+549 C Life from the Loam
+550 C Light Up the Night
+551 C Lightning Helix
+552 C Lightning Strike
+553 C Liquimetal Torque
+554 C Living Death
+555 C Llanowar Wastes
+556 C Lose Focus
+557 C Lotus Cobra
+558 C Maelstrom Pulse
+559 C Manglehorn
+560 C Mardu Woe-Reaper
+561 C Meloku the Clouded Mirror
+562 C Memory Jar
+563 C Metalworker
+564 C Mimic Vat
+565 C Mind Stone
+566 C Najeela, the Blade-Blossom
+567 C Nature's Chant
+568 C Needle Spires
+569 C Needleverge Pathway
+570 C Nicol Bolas, the Ravager
+571 C Occult Epiphany
+572 C Omnath, Locus of Creation
+573 C Opt
+574 C Ornithopter of Paradise
+575 C Orzhov Signet
+576 C Pelt Collector
+577 C Pithing Needle
+578 C Poppet Stitcher
+579 C Primal Adversary
+580 C Prismari Command
+581 C Progenitus
+582 C Psychatog
+583 C Purphoros, God of the Forge
+584 C Putrid Imp
+585 C Rakdos Signet
+586 C Ramunap Excavator
+587 C Rancor
+588 C Regrowth
+589 C Retrofitter Foundry
+590 C Reveillark
+591 C Riverglide Pathway
+592 C Rotting Regisaur
+593 C Sea Gate Stormcaller
+594 C Seachrome Coast
+595 C Seasoned Hallowblade
+596 C Sedgemoor Witch
+597 C Selesnya Signet
+598 C Sevinne's Reclamation
+599 C Shambling Vent
+600 C Shatterskull Smashing
+601 C Shivan Reef
+602 C Simic Signet
+603 C Sleight of Hand
+604 C Sorcerous Spyglass
+605 C Soulherder
+606 C Sphinx of the Steel Wind
+607 C Spikefield Hazard
+608 C Stirring Wildwood
+609 C Sulfurous Springs
+610 C Tangled Florahedron
+611 C Tarmogoyf
+612 C Terramorphic Expanse
+613 C Tezzeret, Agent of Bolas
+614 C Tolarian Academy
+615 C Treasure Map
+616 C Treetop Village
+617 C Triplicate Titan
+618 C Ulamog, the Infinite Gyre
+619 C Underground River
+620 C Undiscovered Paradise
+621 C Urza's Saga
+622 C Vanishing Verse
+623 C Vindicate
+624 C Warden of the First Tree
+625 C Waterlogged Grove
+626 C Wild Nacatl
+627 C Wolfbitten Captive
+628 C Worldly Tutor
+629 C Worn Powerstone
+630 C Yavimaya Coast
+631 C Nicol Bolas, God-Pharaoh
+632 C Chandra, Fire of Kaladesh
+633 C Liliana, Heretical Healer
+634 C Isochron Scepter
+635 C Lord Reginald, Corgi of the People
+636 L Plains
+637 L Island
+638 L Swamp
+639 L Forest
+640 L Mountain
+641 C The Wandering Emperor
+642 C Boseiju, Who Endures
+643 C Otawara, Soaring City
+644 C Eater of Virtue
+645 C Lovestruck Beast
+646 C Mercurial Spelldancer
+647 C Sheoldred, the Apocalypse
+648 C Bloodfeather Phoenix
+649 C Twinshot Sniper
+650 C Planar Disruption
+651 C Sheoldred's Edict
+652 C Cankerbloom
+653 C Atraxa, Grand Unifier
+654 C Misery's Shadow
+655 C Aether Channeler
+656 C Evolved Sleeper
+657 C Squee, Dubious Monarch
+658 C Cult Conscript
+659 C Fable of the Mirror-Breaker
+660 C March of Otherworldly Light
+661 C Titan of Industry
+662 C Old One Eye
+663 C Minsc & Boo, Timeless Heroes
+664 C The Eternal Wanderer
+665 C Tenacious Underdog
+666 C Nissa, Ascended Animist
+667 C Looter il-Kor
+668 C Recruitment Officer
+669 C Sir Reginald, Menace at the Door
+700 C Knight of the Ebon Legion
+701 C Ledger Shredder
+702 C Chaos Defiler
+703 C Third Path Iconoclast
+704 C Sheoldred
+705 C Thraben Inspector
+706 C Gix, Yawgmoth Praetor
+707 C Tezzeret, the Seeker
+708 C Sorin the Mirthless
+709 C Freyalise, Llanowar's Fury
+710 C Narset Transcendent
+711 C Tasha, the Witch Queen
+712 C Angrath, the Flame-Chained
+713 C Domri, Anarch of Bolas
+714 C Ajani Unyielding
+715 C Huatli, Radiant Champion
+716 C Kaya, Ghost Assassin
+717 C Ral, Storm Conduit
+718 C Tyvar, Jubilant Brawler
+719 C Nahri, the Harbringer
+720 C Kiora, Behemoth Beckoner
+721 C Aminatou, the Fateshifter
+722 C Nicol Bolas, Dragon-God
+723 C Lord Windgrace
+724 C Comeuppance
+725 C Semester's End
+726 C Silence
+727 C Supreme Verdict
+728 C Fabricate
+729 C Fierce Guardianship
+730 C Thoughtcast
+731 C Ghouls' Night Out
+732 C Lethal Scheme
+733 C Liliana's Triumph
+734 C The Elderspell
+735 C Blasphemous Act
+736 C Deflecting Swat
+737 C Jeska's Will
+738 C Mizzix's Mastery
+739 C Crop Rotation
+740 C Nissa's Triumph
+741 C March of the Multitudes
+742 C Rhystic Study
+743 C Grand Abolisher
+744 C Lotus Petal
+745 C Comet, Stellar Pup
+746 C Torment of Hailfire
+747 C Vilis, Broker of Blood
+748 C Wayfarer's Bauble
+749 C Arcane Signet
+750 C Mox Amber
+751 C Mox Tantalite
+752 C Fellwar Stone
+753 C Pattern of Rebirth
+754 C Sol Grail
+755 C Command Beacon
+756 C Mystic Remora
+757 C Defense of the Heart
+758 C Kaito, Dancing Shadow
+759 C Orcish Bowmasters
+760 C Esper Sentinel
+761 C Delighted Halfling
+762 C Flowering of the White Tree
+763 C Chaos Defiler
+764 C The One Ring
+765 C Lightning Greaves
+766 C Grafted Wargear
+767 C Shadowspear
+768 C Heirloom Blade
+769 C Chloe, Deranged Hermit
+770 C Chloe, Deep Forest Hermit
+771 C Bob, Dark Confidant
+772 C Reggie, Stellar Pup
+773 C Captain Bradley's Sword
+774 C Anduril, Flame of the West
+775 C Forth Corgis!
+776 C Forth Eorlingas!
+777 C Gruff Triplets
+778 C Cheeky House-Mouse
+779 C Mosswood Dreadknight
+780 C Court of Garenbrig
+781 C Restless Vinestalk
+782 C Angel of Indemnity
+783 C Dust Animus
+784 C Get Lost
+785 C Duelist of the Mind
+786 C Flash
+787 C Smirking Spelljacker
+788 C Forsaken Miner
+789 C Deep-Cavern Bat
+790 C Bitter Triumph
+791 C Slickshot Show-Off
+792 C Inti, Seneschal of the Sun
+793 C Headliner Scarlett
+794 C Trumpeting Carnosaur
+795 C Sandstorm Salvager
+796 C Sentinel of the Nameless City
+797 C Bristlebud Farmer
+798 C Vaultborn Tyrant
+799 C Smuggler's Surprise
+800 C Lavaspur Boots
+801 C Pillage the Bog
+802 C Restless Vents
+803 C Harvester of Misery
+804 C Delayed Blast Fireball
+805 C Bonny Pall, Clearcutter
+806 C Selvala, Eager Trailblazer
+807 C Reprieve
+808 C Worldspine Wurm
+810 C Phelia, Exuberant Shepherd
+811 C Ajani, Nacatl Pariah
+812 C Sink into Stupor
+813 C Soporific Springs
+814 C Tamiyo, Inquisitive Student
+815 C Flare of Duplication
+816 C Ghostfire Slice
+817 C Fanatic of Rhonas
+818 C Psychic Frog
+819 C Kudo, King Among Bears
+820 C Abstruse Appropriation
+821 C Kudo, King Among Corgis
+822 C Ashiok, Nightmare Muse
+823 C Overlord of the Mistmoors
+824 C Emberheart Challenger
+825 C Jacked Rabbit
+826 C Kellan, Planar Trailblazer
+827 C Ocelot Pride
+828 C Chrome Host Seedshark
+829 C Death-Greeter's Champion
