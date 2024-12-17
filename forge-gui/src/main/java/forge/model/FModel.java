@@ -537,4 +537,5 @@ public final class FModel {
     public static TournamentData getTournamentData() { return tournamentData; }
 
     public static void setTournamentData(TournamentData tournamentData) { FModel.tournamentData = tournamentData;  }
+
 }

@@ -1,5 +1,6 @@
 package forge.gamemodes.limited;
 
+import forge.drbo6scustoms.DraftClassTracker;
 import forge.game.GameView;
 import forge.gui.interfaces.IButton;
 import forge.gui.interfaces.IWinLoseView;
@@ -83,6 +84,7 @@ public abstract class LimitedWinLoseController {
     public final void actionOnQuit() {
         resetView();
         gauntlet.resetCurrentRound();
+        DraftClassTracker.setGameInProgress(false); // Bob - Let's put this here as well
     }
 
     /**

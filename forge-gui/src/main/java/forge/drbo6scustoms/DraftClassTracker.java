@@ -13,6 +13,13 @@ import java.util.ArrayList;
 
 public class DraftClassTracker {
     private static boolean isInitializingFile = false;
+    private static boolean gameInProgress = false;
+    public static boolean isGameInProgress() {
+        return gameInProgress;
+    }
+    public static void setGameInProgress(boolean gameInProgress) {
+        DraftClassTracker.gameInProgress = gameInProgress;
+    }
 
     public static void InitializeDraftStatsFile(String humanDeckName) {
         String fileName = "draftstats.properties";

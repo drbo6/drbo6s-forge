@@ -67,7 +67,18 @@ public enum CSubmenuDraft implements ICDoc {
 
         view.getBtnBuildDeck().setCommand((UiCommand) this::setupDraft);
 
-        view.getBtnStart().addActionListener(e -> startGame(GameType.Draft));
+        // CODE INJECTION
+        // --------------
+        // Adding some code to make it so that we can only run one game at a time
+        // There are some hooks that reset the isGameInProgress() on actionOnQuit() in ControlWinLose and LimitedWinLoseController
+        // Original: view.getBtnStart().addActionListener(e -> startGame(GameType.Draft));
+        view.getBtnStart().addActionListener(e -> {
+            if (!DraftClassTracker.isGameInProgress()) { // Bob - added this check to limit to one concurrent game
+                startGame(GameType.Draft);
+            } else {
+                FOptionPane.showErrorDialog("This version of Forge only supports one concurrent match. Quit your other match first.");
+            }
+        });
 
         view.getRadSingle().addActionListener(radioAction);
 
@@ -156,6 +167,7 @@ public enum CSubmenuDraft implements ICDoc {
             if ("Gauntlet".equals(duelType)) {
                 final int rounds = opponentDecks.getAiDecks().size();
                 FModel.getGauntletMini().launch(rounds, humanDeck.getDeck(), gameType);
+                DraftClassTracker.setGameInProgress(true); // If we made it here we started the Gauntlet
             } else if ("Tournament".equals(duelType)) {
                 // TODO Allow for tournament style draft, instead of always a gauntlet
             }
@@ -225,6 +237,8 @@ public enum CSubmenuDraft implements ICDoc {
 
         final HostedMatch hostedMatch = GuiBase.getInterface().hostMatch();
         hostedMatch.startMatch(GameType.Draft, null, starter, human, GuiBase.getInterface().getNewGuiGame()); // Starter is a list of players that has all the information needed to start the game
+
+        DraftClassTracker.setGameInProgress(true); // If we made it here we started the game.
 
         SwingUtilities.invokeLater(SOverlayUtils::hideOverlay);
     }

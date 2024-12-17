@@ -71,6 +71,7 @@ public class ControlWinLose {
     /** Action performed when "quit" button is pressed in default win/lose UI. */
     public void actionOnQuit() {
         nextGameAction(NextGameDecision.QUIT);
+        DraftClassTracker.setGameInProgress(false); // Bob - Let's put this here as well
         Singletons.getControl().setCurrentScreen(FScreen.HOME_SCREEN);
     }
 
