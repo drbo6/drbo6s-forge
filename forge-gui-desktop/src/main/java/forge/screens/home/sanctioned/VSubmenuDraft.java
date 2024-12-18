@@ -19,12 +19,14 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
 import forge.game.GameType;
+import forge.gui.GuiBase;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
 import forge.itemmanager.DeckManager;
 import forge.itemmanager.ItemManagerContainer;
 import forge.localinstance.properties.ForgeConstants;
+import forge.localinstance.properties.ForgePreferences;
 import forge.screens.deckeditor.CDeckEditorUI;
 import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
@@ -36,6 +38,7 @@ import forge.toolbox.FLabel;
 import forge.toolbox.FRadioButton;
 import forge.toolbox.FSkin;
 import forge.toolbox.JXButtonPanel;
+import forge.util.FileUtil;
 import forge.util.Localizer;
 import net.miginfocom.swing.MigLayout;
 
@@ -216,6 +219,11 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
 
         try {
             // Load normal, hover, and clicked images
+            // The following is code from other place that can get you the skin name if you want to access it. We can make this work but it will not update with the rest.
+            // if (FileUtil.doesFileExist(ForgeConstants.MAIN_PREFS_FILE)) {
+            //    skinDir = GuiBase.getForgePrefs().getPref(ForgePreferences.FPref.UI_SKIN)); // defaults to 'default' above
+            //}
+
             buttonImage = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_reg.jpg"));
             buttonImageHover = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_hov.jpg"));
             buttonImageClicked = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_clk.jpg"));
