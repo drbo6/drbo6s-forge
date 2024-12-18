@@ -106,11 +106,15 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         // 4 custom buttons
         buttonPanel.setLayout(new MigLayout("insets 0, gap 0px, flowx, ax center"));
         buttonPanel.setBackground(null);
-        String[] buttonImages = {"Vintage", "Pauper", "Classic", "Custom"};
+        String[] buttonImages = {"vintage", "pauper", "classic", "custom"}; // be careful with cases because Linux
         for (String image : buttonImages) {
             JButton button = getImageButton(image);
-            imageButtons.put(image, button); // Store button in the map with the name as the key
-            buttonPanel.add(button, "w 250px!, h 75px!, gap 10 10 0 0");
+            imageButtons.put(image, button); // Store button in the map with the name as the key for future reference
+            button.setMargin(null); // Remove margins around the button content
+            button.setBorder(null); // Remove the border of the button
+            button.setFocusPainted(false); // Disable focus border
+            button.setContentAreaFilled(false); // Disable default background
+            buttonPanel.add(button, "gap 10 10 0 0"); // "w 250px!, h 75px!, gap 10 10 0 0");
         }
 
         final JXButtonPanel grpPanel = new JXButtonPanel();

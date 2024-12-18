@@ -67,10 +67,10 @@ public enum CSubmenuDraft implements ICDoc {
 
         view.getBtnBuildDeck().setCommand((UiCommand) this::setupDraft);
 
-        view.getButton("Vintage").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Vintage Cube"); });
-        view.getButton("Pauper").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Pauper Cube"); });
-        view.getButton("Classic").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Classic Cube"); });
-        view.getButton("Custom").addActionListener(e -> { setupDraft(); });
+        view.getButton("vintage").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Vintage Cube"); });
+        view.getButton("pauper").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Pauper Cube"); });
+        view.getButton("classic").addActionListener(e -> { DrBo6sSetupDraft("DrBo6's Classic Cube"); });
+        view.getButton("custom").addActionListener(e -> { setupDraft(); });
 
         // CODE INJECTION
         // --------------
