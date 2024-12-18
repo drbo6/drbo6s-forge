@@ -213,24 +213,35 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
     }
 
     private static JButton getImageButton(String draft_type) {
-        final BufferedImage buttonImage;
-        final BufferedImage buttonImageHover;
-        final BufferedImage buttonImageClicked;
 
-        try {
-            // Load normal, hover, and clicked images
-            // The following is code from other place that can get you the skin name if you want to access it. We can make this work but it will not update with the rest.
-            // if (FileUtil.doesFileExist(ForgeConstants.MAIN_PREFS_FILE)) {
-            //    skinDir = GuiBase.getForgePrefs().getPref(ForgePreferences.FPref.UI_SKIN)); // defaults to 'default' above
-            //}
+        // Get the button images and look into the skins folder as well
+        String skinDir = "default";
+        String fileNameTemplate = "fbut_%s_%s.jpg";
+        String[] states = {"reg", "hov", "clk"};
 
-            buttonImage = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_reg.jpg"));
-            buttonImageHover = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_hov.jpg"));
-            buttonImageClicked = ImageIO.read(new File(ForgeConstants.DEFAULT_SKINS_DIR + "fbut_" + draft_type + "_clk.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null; // Handle the case when the images cannot be loaded
+        if (FileUtil.doesFileExist(ForgeConstants.MAIN_PREFS_FILE)) {
+            skinDir = GuiBase.getForgePrefs().getPref(ForgePreferences.FPref.UI_SKIN); // defaults to 'default'
         }
+        Map<String, BufferedImage> buttonImages = new HashMap<>();
+        for (String state : states) {
+            String fileName = String.format(fileNameTemplate, draft_type, state);
+            String cachePath = ForgeConstants.CACHE_SKINS_DIR + skinDir + ForgeConstants.PATH_SEPARATOR + fileName;
+            String defaultPath = ForgeConstants.DEFAULT_SKINS_DIR + fileName;
+
+            try {
+                BufferedImage image = FileUtil.doesFileExist(cachePath)
+                        ? ImageIO.read(new File(cachePath))
+                        : ImageIO.read(new File(defaultPath));
+                buttonImages.put(state, image);
+            } catch (IOException e) {
+                System.err.println("Error loading image for state '" + state + "': " + e.getMessage());
+                buttonImages.put(state, null); // Default to null if image can't be loaded
+            }
+        }
+        BufferedImage buttonImage = buttonImages.get("reg");
+        BufferedImage buttonImageHover = buttonImages.get("hov");
+        BufferedImage buttonImageClicked = buttonImages.get("clk");
+
 
         // Create a JButton with the image
         JButton btnImage = new JButton();
