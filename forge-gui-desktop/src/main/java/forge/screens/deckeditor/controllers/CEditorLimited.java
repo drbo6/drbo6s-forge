@@ -37,7 +37,6 @@ import forge.gui.framework.FScreen;
 import forge.item.PaperCard;
 import forge.itemmanager.CardManager;
 import forge.itemmanager.ItemManagerConfig;
-import forge.localinstance.properties.ForgePreferences;
 import forge.model.FModel;
 import forge.screens.deckeditor.AddBasicLandsDialog;
 import forge.screens.deckeditor.SEditorIO;
@@ -196,19 +195,46 @@ public final class CEditorLimited extends CDeckEditor<DeckGroup> {
         // CODE INJECTION
         // --------------
         // Prioritize BO6 or B6P for defaultLandSet
-        CardEdition defaultLandSet = null;
-        for (CardEdition edition : availableEditionCodes) {
-            if ("BO6".equals(edition.getCode()) || deck.getName().contains("B06 -") || deck.getName().contains("BO6 -")) {
-                defaultLandSet = edition; // Prefer B6P
-                System.out.println("BO6 lands selected because you used a BO6 card or used 'BO6 -'");
-                break;
-            } else if ("B6P".equals(edition.getCode()) || deck.getName().contains("PAU -")) {
-                defaultLandSet = edition; // Fallback to BO6
-                System.out.println("B6P lands selected because you used a B6P card or used 'PAU -'");
+        // Grab the editions
+        CardEdition editionVintageCube = null;
+        CardEdition editionPauperCube = null;
+        CardEdition editionClassicCube = null;
+        for (CardEdition edition : FModel.getMagicDb().getEditions()) {
+            if ("BO6".equals(edition.getCode())) {
+                editionVintageCube = edition; // Save BO6
+            } else if ("B6P".equals(edition.getCode())) {
+                editionPauperCube = edition; // Save B6P
+            } else if ("4ED".equals(edition.getCode())) {
+                editionClassicCube = edition; // Save 4ED
             }
         }
-
-        ForgePreferences.FPref.
+        CardEdition defaultLandSet = null;
+        for (CardEdition edition : availableEditionCodes) { // Available editions are the ones matching cards in the deck
+            if ("BO6".equals(edition.getCode())) { // A card edition is a more than a string but it outputs the name and code when called
+                defaultLandSet = edition; // Prefer B6P
+                System.out.println("BO6 lands selected because you used a BO6 card");
+                break;
+            } else if ("B6P".equals(edition.getCode())) {
+                defaultLandSet = edition; // Fallback to BO6
+                System.out.println("B6P lands selected because you used a B6P card");
+                break;
+            }
+        }
+        // Players can decide the default lands by typing the set code and the " - " in the name of their deck.
+        String deckName = deck.getName();
+        int separatorIndex = deckName.indexOf(" - ");
+        if (separatorIndex >= 3) {
+            String editionCode = deckName.substring(0, separatorIndex).trim().toUpperCase();
+            System.out.println("Detected custom edition code: " + editionCode);
+            // Look for a matching edition in the full list of editions
+            for (CardEdition edition : FModel.getMagicDb().getEditions()) {
+                if (editionCode.equals(edition.getCode())) {
+                    defaultLandSet = edition;
+                    System.out.println("Custom lands selected for edition: " + editionCode);
+                    break;
+                }
+            }
+        }
 
         // If neither BO6 nor B6P is found, use a random set
         if (defaultLandSet == null) {
