@@ -198,13 +198,13 @@ public final class CEditorLimited extends CDeckEditor<DeckGroup> {
         // Prioritize BO6 or B6P for defaultLandSet
         CardEdition defaultLandSet = null;
         for (CardEdition edition : availableEditionCodes) {
-            if ("BO6".equals(edition.getCode())) {
+            if ("BO6".equals(edition.getCode()) || deck.getName().contains("B06 -") || deck.getName().contains("BO6 -")) {
                 defaultLandSet = edition; // Prefer B6P
-                System.out.println("BO6 lands selected because you used a BO6 card");
+                System.out.println("BO6 lands selected because you used a BO6 card or used 'BO6 -'");
                 break;
-            } else if ("B6P".equals(edition.getCode())) {
+            } else if ("B6P".equals(edition.getCode()) || deck.getName().contains("PAU -")) {
                 defaultLandSet = edition; // Fallback to BO6
-                System.out.println("B6P lands selected because you used a B6P card");
+                System.out.println("B6P lands selected because you used a B6P card or used 'PAU -'");
             }
         }
 
