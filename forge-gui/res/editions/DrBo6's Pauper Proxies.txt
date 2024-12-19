@@ -1,0 +1,17 @@
+[metadata]
+Code=B6P
+Date=2024-12-17
+Name=DrBo6's Pauper Proxies
+Code2=B6P
+MciCode=B6P
+Type=Other
+BoosterCovers=1
+Booster=15 Common
+ScryfallCode=B6P
+
+[cards]
+1 L Plains
+2 L Island
+3 L Swamp
+4 L Forest
+5 L Mountain

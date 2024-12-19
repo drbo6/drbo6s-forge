@@ -37,6 +37,7 @@ import forge.gui.framework.FScreen;
 import forge.item.PaperCard;
 import forge.itemmanager.CardManager;
 import forge.itemmanager.ItemManagerConfig;
+import forge.localinstance.properties.ForgePreferences;
 import forge.model.FModel;
 import forge.screens.deckeditor.AddBasicLandsDialog;
 import forge.screens.deckeditor.SEditorIO;
@@ -192,7 +193,27 @@ public final class CEditorLimited extends CDeckEditor<DeckGroup> {
             availableEditionCodes.add(FModel.getMagicDb().getEditions().get(p.getEdition()));
         }
 
-        CardEdition defaultLandSet = CardEdition.Predicates.getRandomSetWithAllBasicLands(availableEditionCodes);
+        // CODE INJECTION
+        // --------------
+        // Prioritize BO6 or B6P for defaultLandSet
+        CardEdition defaultLandSet = null;
+        for (CardEdition edition : availableEditionCodes) {
+            if ("BO6".equals(edition.getCode())) {
+                defaultLandSet = edition; // Prefer B6P
+                System.out.println("BO6 lands selected because you used a BO6 card");
+                break;
+            } else if ("B6P".equals(edition.getCode())) {
+                defaultLandSet = edition; // Fallback to BO6
+                System.out.println("B6P lands selected because you used a B6P card");
+            }
+        }
+
+        ForgePreferences.FPref.
+
+        // If neither BO6 nor B6P is found, use a random set
+        if (defaultLandSet == null) {
+            defaultLandSet = CardEdition.Predicates.getRandomSetWithAllBasicLands(availableEditionCodes);
+        }
 
         AddBasicLandsDialog dialog = new AddBasicLandsDialog(deck, defaultLandSet);
         CardPool landsToAdd = dialog.show();
