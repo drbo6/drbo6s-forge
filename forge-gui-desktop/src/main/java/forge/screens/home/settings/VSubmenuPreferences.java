@@ -178,6 +178,9 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         // DrBo6's Shortcuts
         pnlPrefs.add(new SectionLabel(localizer.getMessage("DrBo6sShortcuts")), sectionConstraints);
 
+        pnlPrefs.add(cbDevMode, titleConstraints);
+        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlDevMode")), descriptionConstraints);
+
         pnlPrefs.add(getPlayerNamePanel(), titleConstraints + ", h 26px!");
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlPlayerName")), descriptionConstraints);
 
@@ -336,9 +339,6 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
 
         // Advanced
         pnlPrefs.add(new SectionLabel(localizer.getMessage("AdvancedSettings")), sectionConstraints);
-
-        pnlPrefs.add(cbDevMode, titleConstraints);
-        pnlPrefs.add(new NoteLabel(localizer.getMessage("nlDevMode")), descriptionConstraints);
 
         pnlPrefs.add(cbWorkshopSyntax, titleConstraints);
         pnlPrefs.add(new NoteLabel(localizer.getMessage("nlWorkshopSyntax")), descriptionConstraints);
