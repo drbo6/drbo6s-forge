@@ -251,7 +251,7 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         JButton btnImage = new JButton();
         if (buttonImage != null) {
             btnImage.setIcon(new ImageIcon(buttonImage));  // Default icon
-            btnImage.setToolTipText("Launch a " + draft_type + " draft");
+            btnImage.setToolTipText(null); //"Launch a " + draft_type + " draft"); - more annoying than helpful on Steam Deck
         }
         btnImage.setFocusPainted(false);
         btnImage.setBorderPainted(false);

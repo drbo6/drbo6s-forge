@@ -97,7 +97,7 @@ public abstract class ItemManager<T extends InventoryItem> extends JPanel implem
         .build();
 
     private final FLabel lblRatio = new FLabel.Builder()
-        .tooltip(Localizer.getInstance().getMessage("lblShownOfTotalCards"))
+        .tooltip(Localizer.getInstance().getMessage("lblShownOfTotalCards")) // This is a tooltip in the item manager when hovering over the Available cards and cards shown bit in the header
         .fontAlign(SwingConstants.LEFT)
         .fontSize(12)
         .build();

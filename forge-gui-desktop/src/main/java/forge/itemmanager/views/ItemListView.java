@@ -499,7 +499,7 @@ public final class ItemListView<T extends InventoryItem> extends ItemView<T> {
                 return "";
             }
 
-            return getCellTooltip(getCellRenderer(row, col), row, col, val);
+            return null; //getCellTooltip(getCellRenderer(row, col), row, col, val); BOB CODE INJECTION - This disables those annoying empty tooltips in the table
         }
 
         private int   lastTooltipRow = -1;
