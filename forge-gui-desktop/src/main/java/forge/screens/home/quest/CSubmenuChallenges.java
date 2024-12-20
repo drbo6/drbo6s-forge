@@ -99,7 +99,7 @@ public enum CSubmenuChallenges implements ICDoc {
     private final KeyAdapter _startOnEnter = new KeyAdapter() {
         @Override
         public void keyPressed(final KeyEvent e) {
-            if (KeyEvent.VK_ENTER == e.getKeyChar()) {
+            if (KeyEvent.VK_ENTER == e.getKeyChar()) { // This is to start this mode from the menu. Enter is fine here.
                 VSubmenuChallenges.SINGLETON_INSTANCE.getBtnStart().doClick();
             }
         }

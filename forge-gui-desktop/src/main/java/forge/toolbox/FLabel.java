@@ -218,7 +218,7 @@ public class FLabel extends SkinnedLabel implements ILocalRepaint, IButton {
             this.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(final KeyEvent e) {
-                    if (e.getKeyChar() == ' ' || e.getKeyCode() == 10 || e.getKeyCode() == KeyEvent.VK_ENTER) { _doMouseAction(); }
+                    if (e.getKeyChar() == ' ' || e.getKeyCode() == 10 || e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SPACE) { _doMouseAction(); } // This could apply to a lot but it is discussed as a button so let's just go with it. If we have unintentional behavior, this is a clear culprit.
                 }
             });
 

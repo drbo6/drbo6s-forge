@@ -87,7 +87,7 @@ public enum CSubmenuDuels implements ICDoc {
 	private final KeyAdapter startOnEnter = new KeyAdapter() {
 		@Override
 		public void keyPressed(final KeyEvent e) {
-			if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+			if (e.getKeyChar() == KeyEvent.VK_ENTER) { // This is to start this mode from the menu. Enter is fine here.
 				VSubmenuDuels.SINGLETON_INSTANCE.getBtnStart().doClick();
 			}
 		}

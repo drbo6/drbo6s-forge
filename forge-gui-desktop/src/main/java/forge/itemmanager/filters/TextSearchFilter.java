@@ -78,7 +78,7 @@ public class TextSearchFilter<T extends InventoryItem> extends ItemFilter<T> {
                         }
                         itemManager.focus();
                         break;
-                    case KeyEvent.VK_ENTER:
+                    case KeyEvent.VK_ENTER: // This looks like confirmation from entering text so this should not be replaced with space?
                         if (e.getModifiersEx() == 0) {
                             if (changeTimer.isRunning()) {
                                 applyChange(); //apply change now if currently delayed

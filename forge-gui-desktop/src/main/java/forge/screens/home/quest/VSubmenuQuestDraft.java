@@ -625,7 +625,7 @@ public enum VSubmenuQuestDraft implements IVSubmenu<CSubmenuQuestDraft>, IQuestT
     private final KeyAdapter startOnEnter = new KeyAdapter() {
         @Override
         public void keyPressed(final KeyEvent e) {
-            if (KeyEvent.VK_ENTER == e.getKeyChar()) {
+            if (KeyEvent.VK_ENTER == e.getKeyChar()) { // This is to start this mode from the menu. Enter is fine here.
                 btnStartDraft.doClick();
             }
         }

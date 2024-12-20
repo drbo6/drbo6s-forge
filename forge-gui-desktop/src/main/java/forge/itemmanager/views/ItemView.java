@@ -478,7 +478,7 @@ public abstract class ItemView<T extends InventoryItem> {
             case KeyEvent.CHAR_UNDEFINED:
                 return;
 
-            case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_ENTER: // not replacing enter and space here as it looks like this might not relate to a confirmation press
             case 13: // no KeyEvent constant for this, but this comes up on OSX for shift-enter
                 if (!str.toString().isEmpty()) {
                     // no need to add (or subtract) 1 -- the table selection will already
@@ -493,7 +493,7 @@ public abstract class ItemView<T extends InventoryItem> {
                 }
                 break;
 
-            case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_SPACE: // not replacing enter and space here as it looks like this might not relate to a confirmation press
                 // don't trigger if the first character is a space
                 if (str.toString().isEmpty()) {
                     return;

@@ -254,7 +254,7 @@ public class DualListBox<T> extends FDialog {
 
     private void _handleListKey(KeyEvent e, Runnable onSpace, FList<T> arrowFocusTarget) {
         switch (e.getKeyCode()) {
-        case KeyEvent.VK_SPACE:
+        case KeyEvent.VK_ENTER:
             onSpace.run();
             break;
 
@@ -263,7 +263,7 @@ public class DualListBox<T> extends FDialog {
             arrowFocusTarget.requestFocusInWindow();
             break;
 
-        case KeyEvent.VK_ENTER:
+        case KeyEvent.VK_SPACE: // Swap enter and space
             if (okButton.isEnabled()) {
                 okButton.doClick();
             }

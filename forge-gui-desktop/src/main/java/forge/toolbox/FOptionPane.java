@@ -140,7 +140,7 @@ public class FOptionPane extends FDialog {
             inputField.addKeyListener(new KeyAdapter() { //hook so pressing Enter on field accepts dialog
                 @Override
                 public void keyPressed(final KeyEvent e) {
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) { // This could apply to a lot but it looks like this is the OK button so let's just go with it and replace ENTER with SPACE. If we have unintentional behavior, this is a clear culprit.
                         optionPane.setResult(0);
                     }
                 }
