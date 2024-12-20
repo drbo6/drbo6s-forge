@@ -73,6 +73,24 @@ public class KeyboardShortcuts {
             }
         };
 
+        /** Show card detail. */
+        final Action actCardPicture = new AbstractAction() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (!Singletons.getControl().getCurrentScreen().isMatchScreen()) { return; }
+                SDisplayUtil.showTab(EDocID.CARD_PICTURE.getDoc());
+            }
+        };
+
+        /** Show card picture. */
+        final Action actCardDetail = new AbstractAction() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (!Singletons.getControl().getCurrentScreen().isMatchScreen()) { return; }
+                SDisplayUtil.showTab(EDocID.CARD_DETAIL.getDoc());
+            }
+        };
+
         /** Show console. */
         final Action actShowConsole = new AbstractAction() {
             @Override
@@ -203,6 +221,9 @@ public class KeyboardShortcuts {
         final Localizer localizer = Localizer.getInstance();
         //========== Instantiate shortcut objects and add to list.
         list.add(new Shortcut(FPref.SHORTCUT_SHOWSTACK, localizer.getMessage("lblSHORTCUT_SHOWSTACK"), actShowStack, am, im));
+        list.add(new Shortcut(FPref.SHORTCUT_SHOWCOMBAT, localizer.getMessage("lblSHORTCUT_SHOWCOMBAT"), actShowCombat, am, im));
+        list.add(new Shortcut(FPref.SHORTCUT_SHOWCCARDDETAIL, localizer.getMessage("lblSHORTCUT_SHOWCARDDETAIL"), actCardDetail, am, im));
+        list.add(new Shortcut(FPref.SHORTCUT_SHOWCARDPICTURE, localizer.getMessage("lblSHORTCUT_SHOWCARDPICTURE"), actCardPicture, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCOMBAT, localizer.getMessage("lblSHORTCUT_SHOWCOMBAT"), actShowCombat, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCONSOLE, localizer.getMessage("lblSHORTCUT_SHOWCONSOLE"), actShowConsole, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWDEV, localizer.getMessage("lblSHORTCUT_SHOWDEV"), actShowDev, am, im));
