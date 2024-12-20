@@ -189,7 +189,7 @@ public final class CMatchUI
         this.myDocs.put(EDocID.REPORT_COMBAT, cCombat.getView());
         this.myDocs.put(EDocID.REPORT_LOG, cLog.getView());
         this.myDocs.put(EDocID.DEV_MODE, getCDev().getView());
-        this.myDocs.put(EDocID.BUTTON_DOCK, getCDock().getView());
+        //this.myDocs.put(EDocID.BUTTON_DOCK, getCDock().getView()); // I have no use for the dock view.
     }
 
     private void registerDocs() {
