@@ -3895,4 +3895,5 @@
 #3895|Flight|C|CUSTOM
 #3896|Living Lands|C|CUSTOM
 #3897|Marsh Gas|C|CUSTOM
-#3898|Healing Salve|C|CUSTOM
+#3898|Wall of Fire|C|CUSTOM
+#3899|Healing Salve|C|CUSTOM
