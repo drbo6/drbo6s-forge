@@ -378,12 +378,11 @@ public class AddBasicLandsDialog {
         private void refreshArtChoices() {
             cbLandArt.removeAllItems();
             if (landSet == null) { return; }
-
             int artChoiceCount = FModel.getMagicDb().getCommonCards().getArtCount(cardName, landSet.getCode());
-            cbLandArt.addItem(Localizer.getInstance().getMessage("lblAssortedArt"));
-            for (int i = 1; i <= artChoiceCount; i++) {
+            for (int i = 1; i <= artChoiceCount; i++) { // Move this up as there is a bug that introduces lands from the wrong set
                 cbLandArt.addItem(Localizer.getInstance().getMessage("lblCardArtN", String.valueOf(i)));
             }
+            cbLandArt.addItem(Localizer.getInstance().getMessage("lblAssortedArt"));
         }
 
         @Override

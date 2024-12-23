@@ -48,6 +48,7 @@ import forge.toolbox.FOptionPane;
 import forge.toolbox.FScrollPane;
 import forge.toolbox.FTextArea;
 import forge.util.Callback;
+import forge.util.Localizer;
 import forge.util.MyRandom;
 import forge.util.Utils;
 
@@ -351,8 +352,8 @@ public class AddBasicLandsDialog extends FDialog {
         private PaperCard generateCard(int artIndex) {
             PaperCard c = FModel.getMagicDb().getCommonCards().getCard(cardName, landSet.getCode(), artIndex);
             if (c == null) {
-                //if can't find land for this set, fall back to Zendikar lands
-                c = FModel.getMagicDb().getCommonCards().getCard(cardName, "ZEN");
+                //if can't find land for this set, fall back to MH1 lands
+                c = FModel.getMagicDb().getCommonCards().getCard(cardName, "MH1");
             }
             return c;
         }
@@ -360,12 +361,11 @@ public class AddBasicLandsDialog extends FDialog {
         private void refreshArtChoices() {
             cbLandArt.removeAllItems();
             if (landSet == null) { return; }
-
             int artChoiceCount = FModel.getMagicDb().getCommonCards().getArtCount(cardName, landSet.getCode());
-            cbLandArt.addItem(Forge.getLocalizer().getMessage("lblAssortedArt"));
-            for (int i = 1; i <= artChoiceCount; i++) {
+            for (int i = 1; i <= artChoiceCount; i++) { // Move this up as there is a bug that introduces lands from the wrong set
                 cbLandArt.addItem(Forge.getLocalizer().getMessage("lblCardArtN", String.valueOf(i)));
             }
+            cbLandArt.addItem(Forge.getLocalizer().getMessage("lblAssortedArt"));
         }
 
         @Override
