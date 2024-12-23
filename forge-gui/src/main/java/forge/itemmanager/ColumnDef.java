@@ -45,6 +45,8 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import static java.lang.Integer.parseInt;
+
 public enum ColumnDef {
     /**
      * The column containing the inventory item name.
@@ -83,49 +85,49 @@ public enum ColumnDef {
     // These use a lambda function (->) so that it can be iterated and changed dynamically for each deck (or card)
     // GAMES_WON is a custom column that we are only adding to draft so we don't need as many checks and if statements. It is only shown in draft.
     MATCHES_PCT("lblMatches_Pct", "lblMatches_Pct", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "M"),
+            from -> Double.parseDouble("0" + DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "M")),
             from -> {
                 return DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "M");
             }
     ),
     GAMES_PCT("lblGames_Pct", "lblGames_Pct", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "G"),
+            from -> Double.parseDouble("0" + DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "G")),
             from -> {
                 return DraftClassTracker.getDraftStatPercentage(from.getKey().getName(), "G");
             }
     ),
     MATCHES_WON("lblMatches_Won", "lblMatches_Won", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "MW"),
+            from -> parseInt(DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "MW")),
             from -> {
                 return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "MW");
             }
     ),
     MATCHES_LOST("lblMatches_Lost", "lblMatches_Lost", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "ML"),
+            from -> parseInt(DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "ML")),
             from -> {
                 return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "ML");
             }
     ),
     GAMES_WON("lblGames_Won", "lblGames_Won", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GW"),
+            from -> parseInt(DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GW")),
             from -> {
                 return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GW");
             }
     ),
     GAMES_LOST("lblGames_Lost", "lblGames_Lost", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GL"),
+            from -> parseInt(DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GL")),
             from -> {
                 return DraftClassTracker.getDraftStatAggregate(from.getKey().getName(), "GL");
             }
     ),
     WINNING_STREAK("lblWinning_Streak", "lblWinning_Streak", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStat(from.getKey().getName(), "WinningStreak"),
+            from -> parseInt(DraftClassTracker.getDraftStat(from.getKey().getName(), "WinningStreak")),
             from -> {
                 return DraftClassTracker.getDraftStat(from.getKey().getName(), "WinningStreak");
             }
     ),
     LONGEST_STREAK("lblLongest_Streak", "lblLongest_Streak", 60, true, SortState.DESC,
-            from -> DraftClassTracker.getDraftStat(from.getKey().getName(), "LongestWinningStreak"),
+            from -> parseInt(DraftClassTracker.getDraftStat(from.getKey().getName(), "LongestWinningStreak")),
             from -> {
                 return DraftClassTracker.getDraftStat(from.getKey().getName(), "LongestWinningStreak");
             }
@@ -448,7 +450,7 @@ public enum ColumnDef {
             if (result == Integer.MAX_VALUE) {
                 if (face.getType().isPlaneswalker()) {
                     String loy = face.getInitialLoyalty();
-                    result = StringUtils.isNumeric(loy) ? Integer.parseInt(loy) : 0;
+                    result = StringUtils.isNumeric(loy) ? parseInt(loy) : 0;
                 }
             }
         }

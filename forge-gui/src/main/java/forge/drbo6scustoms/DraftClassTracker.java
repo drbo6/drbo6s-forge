@@ -319,9 +319,15 @@ public class DraftClassTracker {
             }
 
             if (GamesPlayed != 0) {
-                String pct = String.valueOf(Math.round(1000.0 * WinTotal / GamesPlayed));
-                while (pct.length() < 3) { pct = "0" + pct; }
-                return "." + pct;
+                if (Math.round(1000.0 * WinTotal / GamesPlayed) != 1000) {
+                    String pct = String.valueOf(Math.round(1000.0 * WinTotal / GamesPlayed));
+                    while (pct.length() < 3) {
+                        pct = "0" + pct;
+                    }
+                    return "." + pct;
+                } else {
+                    return "1.000";
+                }
             } else {
                 return ".000";
             }
