@@ -224,7 +224,6 @@ public class KeyboardShortcuts {
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCOMBAT, localizer.getMessage("lblSHORTCUT_SHOWCOMBAT"), actShowCombat, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCCARDDETAIL, localizer.getMessage("lblSHORTCUT_SHOWCARDDETAIL"), actCardDetail, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCARDPICTURE, localizer.getMessage("lblSHORTCUT_SHOWCARDPICTURE"), actCardPicture, am, im));
-        list.add(new Shortcut(FPref.SHORTCUT_SHOWCOMBAT, localizer.getMessage("lblSHORTCUT_SHOWCOMBAT"), actShowCombat, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCONSOLE, localizer.getMessage("lblSHORTCUT_SHOWCONSOLE"), actShowConsole, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWDEV, localizer.getMessage("lblSHORTCUT_SHOWDEV"), actShowDev, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_CONCEDE, localizer.getMessage("lblSHORTCUT_CONCEDE"), actConcede, am, im));
