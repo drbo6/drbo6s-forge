@@ -97,6 +97,15 @@ public class KeyboardShortcuts {
             public void actionPerformed(final ActionEvent e) {
                 if (!Singletons.getControl().getCurrentScreen().isMatchScreen()) { return; }
                 SDisplayUtil.showTab(EDocID.REPORT_LOG.getDoc());
+                Singletons.getView().getFrame().setSize(1280, 720);
+            }
+        };
+
+        /** Set screen size to 720p */
+        final Action actScreenReset = new AbstractAction() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                Singletons.getView().getFrame().setSize(1280, 720);
             }
         };
 
@@ -225,6 +234,7 @@ public class KeyboardShortcuts {
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCCARDDETAIL, localizer.getMessage("lblSHORTCUT_SHOWCARDDETAIL"), actCardDetail, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCARDPICTURE, localizer.getMessage("lblSHORTCUT_SHOWCARDPICTURE"), actCardPicture, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWCONSOLE, localizer.getMessage("lblSHORTCUT_SHOWCONSOLE"), actShowConsole, am, im));
+        list.add(new Shortcut(FPref.SHORTCUT_SCREENRESET, localizer.getMessage("lblSHORTCUT_SCREENRESET"), actScreenReset, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_SHOWDEV, localizer.getMessage("lblSHORTCUT_SHOWDEV"), actShowDev, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_CONCEDE, localizer.getMessage("lblSHORTCUT_CONCEDE"), actConcede, am, im));
         list.add(new Shortcut(FPref.SHORTCUT_ENDTURN, localizer.getMessage("lblSHORTCUT_ENDTURN"), actEndTurn, am, im));
