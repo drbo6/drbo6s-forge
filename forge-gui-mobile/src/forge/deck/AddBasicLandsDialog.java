@@ -48,7 +48,6 @@ import forge.toolbox.FOptionPane;
 import forge.toolbox.FScrollPane;
 import forge.toolbox.FTextArea;
 import forge.util.Callback;
-import forge.util.Localizer;
 import forge.util.MyRandom;
 import forge.util.Utils;
 

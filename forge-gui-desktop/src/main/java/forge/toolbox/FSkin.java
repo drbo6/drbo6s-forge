@@ -115,7 +115,6 @@ import forge.model.FModel;
 import forge.screens.home.sanctioned.VSubmenuDraft;
 import forge.util.Localizer;
 import forge.util.OperatingSystem;
-import forge.util.WordUtil;
 import forge.view.FView;
 
 
