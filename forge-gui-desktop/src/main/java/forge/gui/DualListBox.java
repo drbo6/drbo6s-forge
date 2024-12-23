@@ -254,7 +254,7 @@ public class DualListBox<T> extends FDialog {
 
     private void _handleListKey(KeyEvent e, Runnable onSpace, FList<T> arrowFocusTarget) {
         switch (e.getKeyCode()) {
-        case KeyEvent.VK_ENTER:
+        case KeyEvent.VK_SPACE:
             onSpace.run();
             break;
 
@@ -263,7 +263,7 @@ public class DualListBox<T> extends FDialog {
             arrowFocusTarget.requestFocusInWindow();
             break;
 
-        case KeyEvent.VK_SPACE: // Swap enter and space
+        case KeyEvent.VK_ENTER: // We could replace enter and space here but we are rolling it all back and using enter on steam deck
             if (okButton.isEnabled()) {
                 okButton.doClick();
             }

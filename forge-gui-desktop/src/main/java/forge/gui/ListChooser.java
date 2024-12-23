@@ -128,7 +128,7 @@ public class ListChooser<T> {
 
         this.lstChoices.addKeyListener(new KeyAdapter() {
             @Override public void keyPressed(final KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SPACE) { // Lets make this a little more consistent
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) { // We rolled back a SPACE here as we are now just using ENTER on the deck
                     ListChooser.this.commit();
                 }
             }
