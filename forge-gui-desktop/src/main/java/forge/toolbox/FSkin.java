@@ -112,6 +112,7 @@ import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.localinstance.skin.FSkinProp;
 import forge.localinstance.skin.ISkinImage;
 import forge.model.FModel;
+import forge.screens.home.sanctioned.VSubmenuDraft;
 import forge.util.Localizer;
 import forge.util.OperatingSystem;
 import forge.util.WordUtil;
@@ -1141,6 +1142,8 @@ public class FSkin {
 
         //repaint main frame to ensure all visible components apply the new skin
         Singletons.getView().getFrame().repaint();
+        VSubmenuDraft.SINGLETON_INSTANCE.createButtonPanel();
+        VSubmenuDraft.SINGLETON_INSTANCE.populate();
     }
 
     /**
@@ -1158,10 +1161,10 @@ public class FSkin {
 
             if (allSkins == null) { //initialize
                 allSkins = new ArrayList<>();
-                allSkins.add("Default");//init default
+                allSkins.add("default");//init default
                 final List<String> skinDirectoryNames = getSkinDirectoryNames();
                 for (String skinDirectoryName : skinDirectoryNames) {
-                    allSkins.add(WordUtil.capitalize(skinDirectoryName.replace('_', ' ')));
+                    allSkins.add(skinDirectoryName.replace('_', ' ')); // Capitalizing this will mess up Linux and Steam Deck
                 }
                 Collections.sort(allSkins);
             }

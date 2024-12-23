@@ -103,19 +103,7 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
 
         lstDecks.setCaption(localizer.getMessage("lblDraftDecks")); // This prints Draft Decks on the page
 
-        // 4 custom buttons
-        buttonPanel.setLayout(new MigLayout("insets 0, gap 0px, flowx, ax center"));
-        buttonPanel.setBackground(null);
-        String[] buttonImages = {"vintage", "pauper", "classic", "custom"}; // be careful with cases because Linux
-        for (String image : buttonImages) {
-            JButton button = getImageButton(image);
-            imageButtons.put(image, button); // Store button in the map with the name as the key for future reference
-            button.setMargin(null); // Remove margins around the button content
-            button.setBorder(null); // Remove the border of the button
-            button.setFocusPainted(false); // Disable focus border
-            button.setContentAreaFilled(false); // Disable default background
-            buttonPanel.add(button, "gap 10 10 0 0"); // "w 250px!, h 75px!, gap 10 10 0 0");
-        }
+        createButtonPanel();
 
         final JXButtonPanel grpPanel = new JXButtonPanel();
 
@@ -132,6 +120,28 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         pnlStart.add(grpPanel, "gapright 20");
         pnlStart.add(btnStart);
 
+    }
+
+    public void createButtonPanel() {
+        if (buttonPanel.getComponentCount() > 0) {
+            buttonPanel.removeAll(); // Remove all components from the panel
+            buttonPanel.revalidate(); // Revalidate the layout to update the panel
+            buttonPanel.repaint(); // Repaint the panel to reflect the changes
+        }
+
+        // 4 custom buttons
+        buttonPanel.setLayout(new MigLayout("insets 0, gap 0px, flowx, ax center"));
+        buttonPanel.setBackground(null);
+        String[] buttonImages = {"vintage", "pauper", "classic", "custom"}; // be careful with cases because Linux
+        for (String image : buttonImages) {
+            JButton button = getImageButton(image);
+            imageButtons.put(image, button); // Store button in the map with the name as the key for future reference
+            button.setMargin(null); // Remove margins around the button content
+            button.setBorder(null); // Remove the border of the button
+            button.setFocusPainted(false); // Disable focus border
+            button.setContentAreaFilled(false); // Disable default background
+            buttonPanel.add(button, "gap 10 10 0 0"); // "w 250px!, h 75px!, gap 10 10 0 0");
+        }
     }
 
     /* (non-Javadoc)
@@ -245,7 +255,6 @@ public enum VSubmenuDraft implements IVSubmenu<CSubmenuDraft> {
         BufferedImage buttonImage = buttonImages.get("reg");
         BufferedImage buttonImageHover = buttonImages.get("hov");
         BufferedImage buttonImageClicked = buttonImages.get("clk");
-
 
         // Create a JButton with the image
         JButton btnImage = new JButton();
