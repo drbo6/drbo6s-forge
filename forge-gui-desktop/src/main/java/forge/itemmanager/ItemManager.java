@@ -223,7 +223,7 @@ public abstract class ItemManager<T extends InventoryItem> extends JPanel implem
             } else {
                 final JMenu addMenu = GuiUtils.createMenu(Localizer.getInstance().getMessage("lblAddOrEditFilter"));
                 GuiUtils.addMenuItem(addMenu, Localizer.getInstance().getMessage("lblCurrentTextSearch"),
-                        KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), // This is a CTRL+ENTER (getMenuShortCutKeyMask is likely a modifier) but it seems deprecated. I think a VK_SPACE might be fine to replace the VK_ENTER.
+                        KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), // This is a CTRL+ENTER (getMenuShortCutKeyMask is likely a modifier). I think a VK_SPACE might be fine to replace the VK_ENTER, but leaving it for now as none of our cases include a CTRL.
                         cmdAddCurrentSearch, !mainSearchFilter.isEmpty());
                 if (config != ItemManagerConfig.STRING_ONLY) {
                     buildAddFilterMenu(addMenu);

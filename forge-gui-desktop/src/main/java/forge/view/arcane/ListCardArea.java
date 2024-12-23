@@ -120,7 +120,7 @@ public class ListCardArea extends FloatingCardArea {
 				@Override
 				public void keyPressed(final KeyEvent e) {
 					switch (e.getKeyCode()) {
-						case KeyEvent.VK_SPACE: // replaced ENTER with SPACE
+						case KeyEvent.VK_ENTER: // doesn't seem related to our use cases where we want to be able to use space as well as enter
 							doneButton.doClick();
 							break;
 						default:
